@@ -1,0 +1,43 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ipynb_checkpoints/
+
+# --- Середовище ---
+.venv/
+venv/
+.env
+
+# --- Дані ---
+data/**
+!data/**/
+!data/**/.gitkeep
+!data/**/*.dvc
+
+# --- Матеріали курсу (ТЗ викладача) — лише локально ---
+docs/labs/
+
+# --- Артефакти експериментів ---
+mlruns/
+mlartifacts/
+mlflow.db
+*.onnx
+*.skops
+*.pkl
+*.joblib
+catboost_info/
+
+# --- Kaggle-токен ---
+kaggle.json
+
+# --- IDE / ОС ---
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# --- Тимчасові файли Office ---
+~$*
