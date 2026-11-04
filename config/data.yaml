@@ -1,0 +1,17 @@
+# Джерело даних і контрольоване інжектування пропусків (REFORMS 2a).
+source:
+  path: data/raw/E Commerce Dataset.xlsx
+  sheet: E Comm
+  dataset: "Ecommerce Customer Churn Analysis and Prediction (Ankit Verma, Kaggle, 2021)"
+  url: https://www.kaggle.com/datasets/ankitverma2010/ecommerce-customer-churn-analysis-and-prediction
+id_column: CustomerID
+target: Churn                   # 1 = клієнт пішов
+
+# Природні пропуски (4.5–5.5%) потрапляють лише в першу гілку політики (≤ 10%).
+# Щоб продемонструвати інші гілки, додаємо MCAR-пропуски з фіксованим seed.
+missing_injection:
+  mechanism: MCAR
+  seed: 42
+  columns:
+    CashbackAmount: 0.20        # числова → гілка "> 10% і ≤ 40%": медіана + індикатор
+    PreferedOrderCat: 0.15      # категоріальна → гілка "> 10%": категорія Missing

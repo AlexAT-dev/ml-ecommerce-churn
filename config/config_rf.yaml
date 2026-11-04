@@ -1,0 +1,61 @@
+# Конфігурація препроцесингу — ЛР1.
+# config_lr.yaml і config_rf.yaml відрізняються ЄДИНИМ рядком: model_family.
+model_family: partitioning        # additive | partitioning  (п. 3.4.4: спосіб комбінування ознак)
+
+features:
+  numeric_continuous:           # кількісні ознаки (неперервні та лічильники)
+    - Tenure
+    - WarehouseToHome
+    - HourSpendOnApp
+    - NumberOfDeviceRegistered
+    - NumberOfAddress
+    - OrderAmountHikeFromlastYear
+    - CouponUsed
+    - OrderCount
+    - DaySinceLastOrder
+    - CashbackAmount
+  numeric_binary:               # прапорці 0/1
+    - Complain
+  categorical_nominal:
+    - PreferredLoginDevice
+    - PreferredPaymentMode
+    - PreferedOrderCat
+    - MaritalStatus
+  categorical_ordinal:          # шкала з порядком 1 < 2 < … < 5
+    - SatisfactionScore
+
+protected_attributes: [CityTier, Gender]  # CityTier — основна (метрики справедливості), Gender — архітектурно виключена; не передаються до ColumnTransformer (п. 5.2)
+
+# Який тип політики імпутації застосовується до групи (група → ключ imputation_policy).
+feature_kinds:
+  numeric_continuous: numeric
+  numeric_binary: numeric
+  categorical_nominal: categorical
+  categorical_ordinal: categorical
+
+# Синоніми категорій (безстанова заміна до імпутації; з даних нічого не оцінюється).
+value_aliases:
+  PreferredLoginDevice: {Phone: Mobile Phone}
+  PreferredPaymentMode: {CC: Credit Card, COD: Cash on Delivery}
+  PreferedOrderCat: {Mobile: Mobile Phone}
+
+imputation_policy:              # пороги; частка обчислюється при навчанні (AdaptiveImputer.fit)
+  numeric:
+    - {max_share: 0.10, strategy: median}
+    - {max_share: 0.40, strategy: median,   add_indicator: true}
+    - {max_share: 1.00, strategy: constant, fill_value: 0, add_indicator: true}
+  categorical:
+    - {max_share: 0.10, strategy: most_frequent}
+    - {max_share: 1.00, strategy: constant, fill_value: "Missing"}
+
+transform_policy:
+  additive:                     # LR, лінійні моделі, SVM, kNN, нейромережі
+    numeric_continuous:  [log1p, standard_scaler]
+    numeric_binary:      [standard_scaler]
+    categorical_nominal: [woe]
+    categorical_ordinal: [ordinal_encoder, standard_scaler]
+  partitioning:                 # дерева, випадковий ліс, градієнтний бустинг
+    numeric_continuous:  [{winsorize: {lower: 0.01, upper: 0.99}}]
+    numeric_binary:      []
+    categorical_nominal: [one_hot]
+    categorical_ordinal: [ordinal_encoder]
