@@ -69,6 +69,34 @@ def write_extended_config(base_path, out_path, group: str, columns, kind: str,
     return cfg
 
 
+def write_config_with_groups(base_path, out_path, groups: dict, extra_imputation: dict | None = None,
+                             header: str = "") -> dict:
+    """Як ``write_extended_config``, але кілька нових груп за раз (ЛР3).
+
+    ``groups`` = {назва: {"columns": [...], "kind": "...", "policy": {родина: [кроки]}}};
+    ``extra_imputation`` = {kind: [правила]} — нові типи для imputation_policy (напр. "text").
+    """
+    import yaml
+    from pathlib import Path
+
+    with open(base_path, encoding="utf-8") as f:
+        cfg = yaml.safe_load(f)
+    for kind, rules in (extra_imputation or {}).items():
+        cfg["imputation_policy"][kind] = rules
+    for name, spec in groups.items():
+        cfg["features"][name] = list(spec["columns"])
+        cfg["feature_kinds"][name] = spec["kind"]
+        for family, steps in spec["policy"].items():
+            cfg["transform_policy"][family][name] = list(steps)
+    out_path = Path(out_path)
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    with open(out_path, "w", encoding="utf-8") as f:
+        if header:
+            f.write("".join(f"# {line}\n" for line in header.splitlines()))
+        yaml.safe_dump(cfg, f, allow_unicode=True, sort_keys=False, width=200)
+    return cfg
+
+
 class ExtendedPipelineBuilder:
     """Обгортка над DynamicPipelineBuilder: ті самі вхідні ворота + валідація feature_engineering."""
 

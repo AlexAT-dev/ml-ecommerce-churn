@@ -1,0 +1,152 @@
+[
+ {
+  "fold": 0,
+  "n_train": 3247,
+  "n_test": 812,
+  "best_params": {
+   "n_estimators": 183,
+   "max_depth": 11,
+   "k_neighbors": 3
+  },
+  "inner_best_roc_auc": 0.9025948633414745,
+  "T_weighted": 0.46,
+  "T_baseline": 0.36,
+  "selected_features": [
+   "Tenure",
+   "Complain",
+   "MaritalStatus_Single",
+   "OrdersPerTenureMonth",
+   "TenureStage",
+   "Segment",
+   "DaySinceLastOrder / Tenure",
+   "HourSpendOnApp / Tenure",
+   "Tenure / CashbackAmount",
+   "Tenure / OrderAmountHikeFromlastYear",
+   "Tenure / OrderCount",
+   "WarehouseToHome / Tenure",
+   "CashbackAmount / Tenure__missing",
+   "DaySinceLastOrder / Tenure__missing",
+   "WarehouseToHome / Tenure__missing"
+  ]
+ },
+ {
+  "fold": 1,
+  "n_train": 3247,
+  "n_test": 812,
+  "best_params": {
+   "n_estimators": 394,
+   "max_depth": 11,
+   "k_neighbors": 3
+  },
+  "inner_best_roc_auc": 0.9105795187158057,
+  "T_weighted": 0.5,
+  "T_baseline": 0.36,
+  "selected_features": [
+   "Tenure",
+   "Complain",
+   "PreferedOrderCat_Mobile Phone",
+   "OrdersPerTenureMonth",
+   "TenureStage",
+   "Segment",
+   "DaySinceLastOrder / Tenure",
+   "HourSpendOnApp / Tenure",
+   "OrderCount / Tenure",
+   "Tenure / CashbackAmount",
+   "Tenure / OrderCount",
+   "WarehouseToHome / Tenure",
+   "NATURAL_LOGARITHM(Tenure)",
+   "DaySinceLastOrder / Tenure__missing",
+   "WarehouseToHome / Tenure__missing"
+  ]
+ },
+ {
+  "fold": 2,
+  "n_train": 3247,
+  "n_test": 812,
+  "best_params": {
+   "n_estimators": 189,
+   "max_depth": 14,
+   "k_neighbors": 5
+  },
+  "inner_best_roc_auc": 0.902953611877002,
+  "T_weighted": 0.42,
+  "T_baseline": 0.27,
+  "selected_features": [
+   "Tenure",
+   "Complain",
+   "PreferedOrderCat_Mobile Phone",
+   "MaritalStatus_Single",
+   "OrdersPerTenureMonth",
+   "TenureStage",
+   "Segment",
+   "DaySinceLastOrder / Tenure",
+   "HourSpendOnApp / Tenure",
+   "Tenure / OrderAmountHikeFromlastYear",
+   "Tenure / OrderCount",
+   "WarehouseToHome / Tenure",
+   "NATURAL_LOGARITHM(Tenure)",
+   "DaySinceLastOrder / Tenure__missing",
+   "WarehouseToHome / Tenure__missing"
+  ]
+ },
+ {
+  "fold": 3,
+  "n_train": 3247,
+  "n_test": 812,
+  "best_params": {
+   "n_estimators": 377,
+   "max_depth": 9,
+   "k_neighbors": 6
+  },
+  "inner_best_roc_auc": 0.9093205214695109,
+  "T_weighted": 0.53,
+  "T_baseline": 0.37,
+  "selected_features": [
+   "Tenure",
+   "Complain",
+   "PreferedOrderCat_Mobile Phone",
+   "OrdersPerTenureMonth",
+   "TenureStage",
+   "Segment",
+   "HourSpendOnApp / Tenure",
+   "Tenure / HourSpendOnApp",
+   "Tenure / OrderCount",
+   "Tenure / WarehouseToHome",
+   "WarehouseToHome / Tenure",
+   "CashbackAmount / Tenure__missing",
+   "DaySinceLastOrder / Tenure__missing",
+   "OrderCount / Tenure__missing",
+   "WarehouseToHome / Tenure__missing"
+  ]
+ },
+ {
+  "fold": 4,
+  "n_train": 3248,
+  "n_test": 811,
+  "best_params": {
+   "n_estimators": 438,
+   "max_depth": 11,
+   "k_neighbors": 10
+  },
+  "inner_best_roc_auc": 0.9094400828193215,
+  "T_weighted": 0.39,
+  "T_baseline": 0.35,
+  "selected_features": [
+   "Tenure",
+   "Complain",
+   "MaritalStatus_Single",
+   "OrdersPerTenureMonth",
+   "TenureStage",
+   "Segment",
+   "CouponUsed / Tenure",
+   "DaySinceLastOrder / Tenure",
+   "HourSpendOnApp / Tenure",
+   "Tenure / DaySinceLastOrder",
+   "Tenure / OrderCount",
+   "WarehouseToHome / Tenure",
+   "NATURAL_LOGARITHM(Tenure)",
+   "DaySinceLastOrder / Tenure__missing",
+   "WarehouseToHome / Tenure__missing"
+  ]
+ }
+]

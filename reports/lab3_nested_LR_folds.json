@@ -1,0 +1,152 @@
+[
+ {
+  "fold": 0,
+  "n_train": 3247,
+  "n_test": 812,
+  "best_params": {
+   "C": 0.24777973408961232,
+   "penalty": "l1",
+   "k_neighbors": 10
+  },
+  "inner_best_roc_auc": 0.8676441026176854,
+  "T_weighted": 0.7,
+  "T_baseline": 0.51,
+  "selected_features": [
+   "Complain",
+   "OrdersPerTenureMonth",
+   "Segment",
+   "DaySinceLastOrder / OrderCount",
+   "DaySinceLastOrder / Tenure",
+   "OrderAmountHikeFromlastYear / Tenure",
+   "Tenure / CouponUsed",
+   "Tenure / HourSpendOnApp",
+   "Tenure / OrderCount",
+   "Tenure / WarehouseToHome",
+   "NATURAL_LOGARITHM(Tenure)",
+   "CashbackAmount / Tenure__missing",
+   "DaySinceLastOrder / Tenure__missing",
+   "HourSpendOnApp / Tenure__missing",
+   "OrderAmountHikeFromlastYear / Tenure__missing"
+  ]
+ },
+ {
+  "fold": 1,
+  "n_train": 3247,
+  "n_test": 812,
+  "best_params": {
+   "C": 0.0319375686306763,
+   "penalty": "l2",
+   "k_neighbors": 4
+  },
+  "inner_best_roc_auc": 0.8739909774966724,
+  "T_weighted": 0.68,
+  "T_baseline": 0.55,
+  "selected_features": [
+   "Tenure",
+   "Complain",
+   "PreferedOrderCat",
+   "OrdersPerTenureMonth",
+   "TenureStage",
+   "Segment",
+   "OrderCount / Tenure",
+   "Tenure / CashbackAmount",
+   "Tenure / DaySinceLastOrder",
+   "Tenure / OrderAmountHikeFromlastYear",
+   "Tenure / OrderCount",
+   "Tenure / WarehouseToHome",
+   "WarehouseToHome / Tenure",
+   "DaySinceLastOrder / Tenure__missing",
+   "WarehouseToHome / Tenure__missing"
+  ]
+ },
+ {
+  "fold": 2,
+  "n_train": 3247,
+  "n_test": 812,
+  "best_params": {
+   "C": 0.11404225558791062,
+   "penalty": "l2",
+   "k_neighbors": 5
+  },
+  "inner_best_roc_auc": 0.865493879862032,
+  "T_weighted": 0.76,
+  "T_baseline": 0.56,
+  "selected_features": [
+   "Tenure",
+   "Complain",
+   "PreferedOrderCat",
+   "Segment",
+   "CouponUsed / Tenure",
+   "DaySinceLastOrder / Tenure",
+   "OrderCount / Tenure",
+   "Tenure / DaySinceLastOrder",
+   "Tenure / OrderAmountHikeFromlastYear",
+   "Tenure / OrderCount",
+   "WarehouseToHome / Tenure",
+   "CashbackAmount / Tenure__missing",
+   "DaySinceLastOrder / Tenure__missing",
+   "OrderAmountHikeFromlastYear / Tenure__missing",
+   "WarehouseToHome / Tenure__missing"
+  ]
+ },
+ {
+  "fold": 3,
+  "n_train": 3247,
+  "n_test": 812,
+  "best_params": {
+   "C": 0.03249290350855258,
+   "penalty": "l2",
+   "k_neighbors": 4
+  },
+  "inner_best_roc_auc": 0.8831585837805003,
+  "T_weighted": 0.72,
+  "T_baseline": 0.51,
+  "selected_features": [
+   "Tenure",
+   "Complain",
+   "PreferedOrderCat",
+   "RecencyRatio",
+   "OrdersPerTenureMonth",
+   "Segment",
+   "CouponUsed / Tenure",
+   "Tenure / OrderAmountHikeFromlastYear",
+   "Tenure / OrderCount",
+   "Tenure / WarehouseToHome",
+   "WarehouseToHome / Tenure",
+   "DaySinceLastOrder / Tenure__missing",
+   "OrderAmountHikeFromlastYear / Tenure__missing",
+   "OrderCount / Tenure__missing",
+   "WarehouseToHome / Tenure__missing"
+  ]
+ },
+ {
+  "fold": 4,
+  "n_train": 3248,
+  "n_test": 811,
+  "best_params": {
+   "C": 0.41699627269790446,
+   "penalty": "l1",
+   "k_neighbors": 4
+  },
+  "inner_best_roc_auc": 0.8759570656608462,
+  "T_weighted": 0.74,
+  "T_baseline": 0.49,
+  "selected_features": [
+   "Tenure",
+   "Complain",
+   "Segment",
+   "CouponUsed / Tenure",
+   "DaySinceLastOrder / OrderCount",
+   "DaySinceLastOrder / Tenure",
+   "OrderCount / Tenure",
+   "Tenure / OrderAmountHikeFromlastYear",
+   "Tenure / OrderCount",
+   "WarehouseToHome / Tenure",
+   "NATURAL_LOGARITHM(Tenure)",
+   "CouponUsed / Tenure__missing",
+   "DaySinceLastOrder / Tenure__missing",
+   "OrderAmountHikeFromlastYear / Tenure__missing",
+   "WarehouseToHome / Tenure__missing"
+  ]
+ }
+]

@@ -13,8 +13,8 @@
 | ЛР | Тема | Гілка / тег | Звіт | Статус |
 |---|---|---|---|---|
 | 1 | Системний дизайн за CRISP-ML(Q) та динамічний препроцесинг-конфігуратор | `lab1` / `lab1-v1.0` | [docs/lab1_report.md](docs/lab1_report.md) | ✅ |
-| 2 | Мультимодальна інженерія та відбір ознак | `lab2` | [docs/lab2_report.md](docs/lab2_report.md) | 🔄 |
-| 3 | Герметизація пайплайну: ліквідація витоку, аномалії, дисбаланс, Nested CV | `lab3` | — | ⏳ |
+| 2 | Мультимодальна інженерія та відбір ознак | `lab2` / `lab2-v1.0` | [docs/lab2_report.md](docs/lab2_report.md) | ✅ |
+| 3 | Герметизація пайплайну: ліквідація витоку, аномалії, дисбаланс, Nested CV | `lab3` | [docs/lab3_report.md](docs/lab3_report.md) | 🔄 |
 | 4 | Трек Модуля 4 (на вибір) | `lab4` | — | ⏳ |
 | 5 | Реліз PoC-системи | `lab5` | — | ⏳ |
 
@@ -33,6 +33,12 @@
 | Таблиця п'яти експериментів, рядок з витоком, DPR/EOR | 2 | [звіт §4](docs/lab2_report.md#4-крок-4--експерименти-і-пастка-витоку-п-44) |
 | Трирівневий відбір ознак | 2 | [src/selection.py](src/selection.py), [звіт §5](docs/lab2_report.md#5-крок-5--статистика-потім-відбір-п-45) |
 | REFORMS, модулі 3, 4, 6 | 2 | [звіт §6](docs/lab2_report.md#6-reforms-модулі-3-4-і-6) |
+| DVC: `.dvc`-покажчики, стадія `prepare`, читання лише через `dvc.api` | 3 | [data/raw/*.dvc](data/raw/), [dvc.yaml](dvc.yaml), [src/data.py](src/data.py), [звіт §1](docs/lab3_report.md) |
+| Механізм витоку ЛР2, McNemar | 3 | [звіт §2, §6](docs/lab3_report.md), [notebooks/lab3_robust_validation.ipynb](notebooks/lab3_robust_validation.ipynb) |
+| Герметичний конвеєр (imblearn), вибір ланки, вкладена CV + Optuna | 3 | [src/evaluation.py](src/evaluation.py), [звіт §3–4](docs/lab3_report.md) |
+| Матриця бізнес-втрат, три підходи, графік «втрати vs поріг», оновлений ML Canvas | 3 | [config/costs.yaml](config/costs.yaml), [звіт §5](docs/lab3_report.md) |
+| DPR/EOR з трьома порівняннями, вплив SMOTE на захищену ознаку | 3 | [notebooks/lab3_fairness.ipynb](notebooks/lab3_fairness.ipynb), [звіт §7](docs/lab3_report.md) |
+| REFORMS, модулі 5 і 6 | 3 | [звіт §8](docs/lab3_report.md) |
 
 ## Структура репозиторію
 
@@ -41,15 +47,20 @@ ML_Labs/
 ├── config/
 │   ├── config_lr.yaml, config_rf.yaml          # ЛР1: препроцесинг (additive / partitioning)
 │   ├── config_lr_fe.yaml, config_rf_fe.yaml    # ЛР2: + ручні ознаки (Експеримент 2)
-│   ├── generated/                              # ЛР2: + DFS-ознаки (Експ. 3) і «дірява» версія (Експ. 4) — генерується ноутбуком
+│   ├── generated/                              # згенеровані конфігурації: ЛР2 (full / leaky), ЛР3 (hermetic)
 │   ├── data.yaml                               # джерело даних, дедуплікація, інжектування пропусків
 │   ├── multimodal.yaml                         # ЛР2: корпус Amazon, прив'язка, екстракція, DFS
-│   └── selection.yaml                          # ЛР2: параметри відбору ознак
-├── data/                                       # не в git: raw/ (xlsx, корпус Amazon, фото), processed/
+│   ├── selection.yaml                          # ЛР2: параметри відбору ознак
+│   ├── hermetic.yaml                           # ЛР3: розбиття, SMOTE, відбір у фолдах, вкладена CV, простір Optuna
+│   └── costs.yaml                              # ЛР3: матриця бізнес-втрат і class_weight
+├── data/                                       # під DVC (не в git): raw/*.dvc — покажчики; processed/ — виходи стадії prepare
+├── dvc.yaml, dvc.lock                          # ЛР3: стадія prepare і хеші її входів/виходів
 ├── docs/                                       # звіти лабораторних
 ├── notebooks/
 │   ├── 00_eda.ipynb, 01_quality_gate.ipynb     # ЛР1
-│   └── 02_multimodal_leakage.ipynb             # ЛР2
+│   ├── 02_multimodal_leakage.ipynb             # ЛР2
+│   ├── lab3_robust_validation.ipynb            # ЛР3: DVC, герметизація, вкладена CV, cost-sensitive, McNemar
+│   └── lab3_fairness.ipynb                     # ЛР3: довірчі DPR/EOR, вплив SMOTE
 ├── reports/                                    # графіки й таблиці результатів
 ├── src/
 │   ├── dynamic_pipeline_builder.py             # ЛР1: validate_config, AdaptiveImputer, DynamicPipelineBuilder
@@ -59,8 +70,12 @@ ML_Labs/
 │   ├── pipeline.py                             # ЛР2: розширений препроцесор (конструктори → ColumnTransformer)
 │   ├── extraction.py                           # ЛР2, Кроки 2–3: корпус, прив'язка, TextExtractor, ImageExtractor, DFS
 │   ├── selection.py                            # ЛР2, Крок 5: статистика, Filter, Hybrid (SFS), Embedded, Tree
-│   └── evaluation.py                           # евристика, DPR / EOR
-├── tests/                                      # pytest: test_lab1.py, test_lab2.py
+│   ├── evaluation.py                           # евристика, DPR/EOR; ЛР3: герметичний конвеєр, Nested CV, Optuna, втрати, McNemar
+│   ├── prepare_data.py                         # ЛР3: стадія DVC prepare, генерація герметичних конфігурацій
+│   ├── preprocessor.py                         # ЛР3: точка входу препроцесора (реекспорт класів ЛР1–2)
+│   └── legacy_lab2.py                          # ЛР3: відтворення прогнозів Експ. 4 ЛР2 для McNemar
+├── models/                                     # не в git: фінальний конвеєр ЛР3 (joblib)
+├── tests/                                      # pytest: test_lab1.py, test_lab2.py, test_lab3.py
 ├── run_verification.py                         # протокол верифікації (з ТЗ ЛР1) — на всіх конфігураціях
 ├── PLAN.md
 └── requirements.txt
@@ -79,11 +94,15 @@ python -m ipykernel install --sys-prefix --name ml-labs     # ядро, на я�
 
 **Дані.** Завантажте `E Commerce Dataset.xlsx` з Kaggle —
 [Ecommerce Customer Churn Analysis and Prediction](https://www.kaggle.com/datasets/ankitverma2010/ecommerce-customer-churn-analysis-and-prediction)
-(Ankit Verma, 2021) — і покладіть у `data/raw/`. Дані не комітяться в репозиторій.
-Корпус Amazon Reviews 2023 і фото ноутбук ЛР2 завантажує сам при першому запуску (≈ 2 хв, кеш у `data/`).
+(Ankit Verma, 2021) — і покладіть у `data/raw/`. Дані не комітяться в git — їх версіонує **DVC** (з ЛР3).
+Корпус Amazon Reviews 2023 і фото завантажує код ЛР2 (`src/extraction.py::download_reviews`) при першому запуску (≈ 2 хв).
+Віддаленого DVC-сховища немає (кеш `.dvc/cache` локальний), тож на новій машині дані треба завантажити заново і перевірити
+збіг хешів з `.dvc`-покажчиками (`dvc status`).
 
 ```powershell
-python run_verification.py          # протокол верифікації: усі конфігурації ЛР1–ЛР2
+dvc status                          # хеші даних збігаються з .dvc / dvc.lock
+dvc repro                           # (пере)будувати data/processed/* (стадія prepare)
+python run_verification.py          # протокол верифікації: усі конфігурації ЛР1–ЛР3
 python -m pytest -q                 # автотести
-jupyter nbconvert --to notebook --execute --inplace notebooks/02_multimodal_leakage.ipynb
+jupyter nbconvert --to notebook --execute --inplace notebooks/lab3_robust_validation.ipynb notebooks/lab3_fairness.ipynb
 ```

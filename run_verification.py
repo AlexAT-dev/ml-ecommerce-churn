@@ -28,6 +28,8 @@ CONFIGS = (
     # (генеруються ноутбуком 02_multimodal_leakage.ipynb)
     "config/generated/config_lr_full.yaml", "config/generated/config_rf_full.yaml",
     "config/generated/config_lr_leaky.yaml", "config/generated/config_rf_leaky.yaml",
+    # ЛР3: герметичний конвеєр (безстанові DFS-ознаки + текстовий блок у фолдах)
+    "config/generated/config_lr_hermetic.yaml", "config/generated/config_rf_hermetic.yaml",
 )
 
 

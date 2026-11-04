@@ -18,6 +18,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+from io import BytesIO
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 from typing import Any, Dict, List, Optional
@@ -30,7 +31,7 @@ from sklearn.decomposition import TruncatedSVD
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.utils.validation import check_is_fitted
 
-from src.data import PROJECT_ROOT
+from src.data import PROJECT_ROOT, open_data, read_bytes, read_csv
 from src.features import CyclicalEncoder
 
 ANGLES = [0.0, np.pi / 4, np.pi / 2, 3 * np.pi / 4]
@@ -91,7 +92,8 @@ def load_corpus(cfg: dict) -> pd.DataFrame:
     frames = []
     for category in cfg["corpus"]["lines_per_category"]:
         path = _abs(cfg["corpus"]["out_dir"]) / f"reviews_{category}.jsonl"
-        df = pd.read_json(path, lines=True)
+        with open_data(path) as f:                       # через DVC (data/raw/amazon.dvc)
+            df = pd.read_json(f, lines=True, convert_dates=False)   # timestamp лишається в мс
         df.insert(0, "source_category", category)
         frames.append(df)
     corpus = pd.concat(frames, ignore_index=True)
@@ -186,7 +188,7 @@ def prepare_linked_reviews(customers: pd.DataFrame, cfg: dict, refresh: bool = F
     """Корпус → прив'язка → фото. Результат кешується в ``linkage.cache``."""
     cache = _abs(cfg["linkage"]["cache"])
     if cache.exists() and not refresh:
-        return pd.read_csv(cache, keep_default_na=True)
+        return read_csv(cache, keep_default_na=True)
     download_reviews(cfg)
     reviews = link_reviews_to_customers(customers, load_corpus(cfg), cfg["linkage"])
     reviews["image_path"] = download_images(reviews, cfg["corpus"]["images"])
@@ -252,10 +254,12 @@ class ImageExtractor(BaseEstimator, TransformerMixin):
     Безстановий. Вхід — шляхи до файлів. Відсутній шлях / неіснуючий / битий файл → NaN.
     """
 
-    def __init__(self, levels: int = 32, distances=(1,), props=("contrast", "correlation", "energy", "homogeneity")):
+    def __init__(self, levels: int = 32, distances=(1,), props=("contrast", "correlation", "energy", "homogeneity"),
+                 reader: str = "dvc"):
         self.levels = levels
         self.distances = distances
         self.props = props
+        self.reader = reader      # "dvc" — дані репозиторію через DVC API; "local" — лише для тестів на тимчасових файлах
 
     def fit(self, X, y=None):
         self.fitted_ = True
@@ -267,7 +271,8 @@ class ImageExtractor(BaseEstimator, TransformerMixin):
         from skimage.feature import graycomatrix, graycoprops
         from skimage.util import img_as_ubyte
 
-        img = io.imread(str(_abs(path)))
+        raw = Path(path).read_bytes() if self.reader == "local" else read_bytes(path)   # DVC: data/raw/amazon.dvc
+        img = io.imread(BytesIO(raw))
         if img.ndim == 3:
             img = rgb2gray(img[..., :3])
         img = img_as_ubyte(img)
@@ -283,12 +288,14 @@ class ImageExtractor(BaseEstimator, TransformerMixin):
         out = np.full((len(paths), len(self.props)), np.nan)
         stats = {"rows": int(len(paths)), "no_image": 0, "failed": 0, "ok": 0}
         for i, path in enumerate(paths):
-            if not isinstance(path, str) or not path or not _abs(path).exists():
+            if not isinstance(path, str) or not path:
                 stats["no_image"] += 1
                 continue
             try:
                 out[i] = self._one(path)
                 stats["ok"] += 1
+            except FileNotFoundError:
+                stats["no_image"] += 1
             except Exception:
                 stats["failed"] += 1
         self.stats_ = stats
@@ -298,7 +305,7 @@ class ImageExtractor(BaseEstimator, TransformerMixin):
         return np.asarray([f"img_{p}" for p in self.props], dtype=object)
 
 
-def review_features(reviews: pd.DataFrame, text_extractor: TextExtractor,
+def review_features(reviews: pd.DataFrame, text_extractor: Optional[TextExtractor],
                     image_extractor: ImageExtractor, cfg: dict) -> pd.DataFrame:
     """Таблиця ознак відгуків (один рядок — один відгук) для EntitySet.
 
@@ -307,7 +314,8 @@ def review_features(reviews: pd.DataFrame, text_extractor: TextExtractor,
     out = reviews[["review_id", cfg["linkage"]["id_column"], "rating"]].copy()
     texts = review_texts(reviews)
     out["text_len"] = texts.str.split().str.len().fillna(0).astype(float)
-    out = out.join(text_extractor.transform(texts.to_frame("text")).set_axis(out.index))
+    if text_extractor is not None:   # ЛР3: None — SVD рахується пізніше, всередині фолдів (ReviewTextSVD)
+        out = out.join(text_extractor.transform(texts.to_frame("text")).set_axis(out.index))
     out = out.join(image_extractor.transform(reviews[["image_path"]]).set_axis(out.index))
     out["has_image"] = reviews["image_path"].notna().astype(float).to_numpy()
     raw_ts = reviews["timestamp"]
@@ -371,3 +379,66 @@ def run_dfs(clients: pd.DataFrame, reviews_feat: pd.DataFrame, cfg: dict):
     fm = fm.apply(pd.to_numeric, errors="coerce").replace([np.inf, -np.inf], np.nan).astype(float)
     fm.attrs["n_candidates"] = len(candidates)        # повний «вибух» до обмеження
     return fm, defs
+
+
+# --------------------------------------------------------------------------- #
+# ЛР3 — текстовий блок як ланка конвеєра (герметизація TF-IDF/SVD)
+# --------------------------------------------------------------------------- #
+REVIEW_SEP = " <|> "
+
+
+def customer_review_text(reviews: pd.DataFrame, id_column: str) -> pd.Series:
+    """Усі відгуки клієнта одним рядком (роздільник ``REVIEW_SEP``) — колонка таблиці клієнтів.
+
+    Безстанова операція: лише групування текстів за ключем клієнта. Завдяки цьому TF-IDF/SVD
+    можна навчати всередині фолду як звичайну ланку ColumnTransformer.
+    """
+    texts = review_texts(reviews).str.replace(REVIEW_SEP.strip(), " ", regex=False)
+    return texts.groupby(reviews[id_column]).agg(REVIEW_SEP.join).rename("ReviewsText")
+
+
+class ReviewTextSVD(BaseEstimator, TransformerMixin):
+    """TF-IDF → TruncatedSVD на окремих відгуках + агрегація по клієнту (mean, max).
+
+    Вхід — колонка з об'єднаними відгуками клієнта (див. ``customer_review_text``).
+    ``fit`` бачить лише відгуки клієнтів поточного (тренувального) фолду — це і є усунення
+    ВИТОКУ №1 з ЛР2 (словник/IDF/SVD на всіх текстах). Агрегати відтворюють DFS-ознаки
+    ``MEAN/MAX(reviews.text_svd_i)``. Клієнт без жодного непорожнього відгуку → 0 (нейтрально).
+    """
+
+    def __init__(self, max_features: int = 500, n_components: int = 5, random_state: int = 42,
+                 aggregations=("mean", "max"), sep: str = REVIEW_SEP):
+        self.max_features = max_features
+        self.n_components = n_components
+        self.random_state = random_state
+        self.aggregations = aggregations
+        self.sep = sep
+
+    def _explode(self, X) -> pd.DataFrame:
+        col = _to_series(X).map(lambda t: t if isinstance(t, str) else "")
+        rows = col.reset_index(drop=True).str.split(self.sep, regex=False).explode()
+        return pd.DataFrame({"row": rows.index.to_numpy(), "text": rows.fillna("").str.strip().to_numpy()})
+
+    def fit(self, X, y=None):
+        exploded = self._explode(X)
+        self.extractor_ = TextExtractor(max_features=self.max_features, n_components=self.n_components,
+                                        random_state=self.random_state).fit(exploded[["text"]])
+        self.n_features_in_ = 1
+        return self
+
+    def transform(self, X):
+        check_is_fitted(self, "extractor_")
+        n_rows = len(_to_series(X))
+        exploded = self._explode(X)
+        comps = self.extractor_.transform(exploded[["text"]]).set_axis(exploded.index)
+        comps["row"] = exploded["row"].to_numpy()
+        agg = comps.groupby("row").agg(list(self.aggregations))
+        agg.columns = [f"{c}_{a}" for c, a in agg.columns]
+        agg = agg.reindex(range(n_rows))
+        out = agg[list(self.get_feature_names_out())].to_numpy(dtype=float)
+        return pd.DataFrame(np.nan_to_num(out, nan=0.0), columns=self.get_feature_names_out(),
+                            index=X.index if hasattr(X, "index") else None)
+
+    def get_feature_names_out(self, input_features=None):
+        return np.asarray([f"text_svd_{i}_{a}" for i in range(self.n_components) for a in self.aggregations],
+                          dtype=object)

@@ -1,0 +1,5 @@
+,inner ROC-AUC (best trial),inner ROC-AUC (best trial),outer ROC-AUC,outer ROC-AUC,outer F1 @T,outer F1 @T,T,T
+,mean,std,mean,std,mean,std,mean,std
+model,,,,,,,,
+LR,0.8732,0.007,0.8761,0.022,0.6253,0.0153,0.72,0.0316
+RF,0.907,0.0039,0.9175,0.0259,0.6657,0.0502,0.46,0.057

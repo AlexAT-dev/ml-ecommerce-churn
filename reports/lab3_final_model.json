@@ -1,0 +1,41 @@
+{
+ "model": "RF",
+ "config": "config/generated/config_rf_hermetic.yaml",
+ "best_params": {
+  "n_estimators": 281,
+  "max_depth": 11,
+  "k_neighbors": 5
+ },
+ "inner_cv_roc_auc": 0.91260858951695,
+ "threshold": 0.46,
+ "class_weight": {
+  "0": 50.0,
+  "1": 118.0
+ },
+ "cost_matrix": {
+  "C00": 0,
+  "C01": 50,
+  "C10": 480,
+  "C11": 362
+ },
+ "selected_features": [
+  "Tenure",
+  "Complain",
+  "PreferedOrderCat_Mobile Phone",
+  "OrdersPerTenureMonth",
+  "TenureStage",
+  "Segment",
+  "CouponUsed / Tenure",
+  "DaySinceLastOrder / Tenure",
+  "HourSpendOnApp / Tenure",
+  "OrderCount / Tenure",
+  "Tenure / OrderCount",
+  "WarehouseToHome / Tenure",
+  "NATURAL_LOGARITHM(Tenure)",
+  "DaySinceLastOrder / Tenure__missing",
+  "WarehouseToHome / Tenure__missing"
+ ],
+ "train_rows": 4059,
+ "data": "data/processed/train.csv (DVC, dvc.lock)",
+ "artifact": "models/lab3_final_pipeline.joblib (не в git)"
+}

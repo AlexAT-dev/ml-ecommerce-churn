@@ -91,7 +91,7 @@ def test_image_extractor_missing_and_broken(tmp_path):
     broken = tmp_path / "broken.jpg"
     broken.write_bytes(b"not an image")
     paths = pd.DataFrame({"p": [str(good), None, str(tmp_path / "nope.jpg"), str(broken)]})
-    ex = ImageExtractor(levels=8).fit(paths)
+    ex = ImageExtractor(levels=8, reader="local").fit(paths)
     out = ex.transform(paths)
     assert out.iloc[0].notna().all() and out.iloc[1:].isna().all().all()
     assert ex.stats_ == {"rows": 4, "no_image": 2, "failed": 1, "ok": 1}

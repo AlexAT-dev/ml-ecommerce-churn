@@ -1,0 +1,6 @@
+,total_cost,total_cost,cost_per_customer,cost_per_customer,F1,F1,ROC_AUC,ROC_AUC
+,mean,std,mean,std,mean,std,mean,std
+approach,,,,,,,,
+0. Евристика ЛР1 (Tenure≤1 OR Complain),62183.2,704.376,76.599,0.892,0.486,0.021,0.76,0.019
+00. Нікого не чіпати (ŷ=0),64608.0,262.907,79.586,0.299,0.0,0.0,0.5,0.0
+000. Пропозиція всім (ŷ=1),82585.2,185.427,101.731,0.194,0.284,0.001,0.5,0.0

@@ -1,0 +1,616 @@
+fold,feature,group,missing_share,rule_max_share,strategy,fill_value,add_indicator
+0,Tenure,numeric_continuous,0.0493,0.1,median,9.0,False
+0,WarehouseToHome,numeric_continuous,0.0431,0.1,median,13.0,False
+0,HourSpendOnApp,numeric_continuous,0.0453,0.1,median,3.0,False
+0,NumberOfDeviceRegistered,numeric_continuous,0.0,0.1,median,4.0,False
+0,NumberOfAddress,numeric_continuous,0.0,0.1,median,3.0,False
+0,OrderAmountHikeFromlastYear,numeric_continuous,0.048,0.1,median,15.0,False
+0,CouponUsed,numeric_continuous,0.0419,0.1,median,1.0,False
+0,OrderCount,numeric_continuous,0.0419,0.1,median,2.0,False
+0,DaySinceLastOrder,numeric_continuous,0.0582,0.1,median,3.0,False
+0,CashbackAmount,numeric_continuous,0.207,0.4,median,163.77,True
+0,Complain,numeric_binary,0.0,0.1,median,0.0,False
+0,PreferredLoginDevice,categorical_nominal,0.0,0.1,most_frequent,Mobile Phone,False
+0,PreferredPaymentMode,categorical_nominal,0.0,0.1,most_frequent,Debit Card,False
+0,PreferedOrderCat,categorical_nominal,0.1524,1.0,constant,Missing,False
+0,MaritalStatus,categorical_nominal,0.0,0.1,most_frequent,Married,False
+0,SatisfactionScore,categorical_ordinal,0.0,0.1,most_frequent,3,False
+0,RecencyRatio,engineered_ratio,0.1075,0.4,median,0.01663739731378079,True
+0,CashbackPerOrder,engineered_ratio,0.2387,0.4,median,84.81957590212049,True
+0,CouponPerOrder,engineered_ratio,0.0838,0.1,median,0.5999988000024,False
+0,OrdersPerTenureMonth,engineered_ratio,0.0912,0.1,median,0.3,False
+0,TenureStage,engineered_stage,0.0493,0.1,median,2.0,False
+0,Segment,high_cardinality,0.0,0.1,most_frequent,Mobile Phone | Married | 3 | Mobile Phone,False
+0,COUNT(reviews),multimodal_dfs,0.0,0.1,median,2.0,False
+0,MAX(reviews.has_image),multimodal_dfs,0.0,0.1,median,0.0,False
+0,MAX(reviews.img_contrast),multimodal_dfs,0.871,1.0,constant,0,True
+0,MAX(reviews.img_correlation),multimodal_dfs,0.871,1.0,constant,0,True
+0,MAX(reviews.img_energy),multimodal_dfs,0.871,1.0,constant,0,True
+0,MAX(reviews.img_homogeneity),multimodal_dfs,0.871,1.0,constant,0,True
+0,MAX(reviews.rating),multimodal_dfs,0.0,0.1,median,3.0,False
+0,MAX(reviews.review_dow_cos),multimodal_dfs,0.0,0.1,median,0.6234898018587336,False
+0,MAX(reviews.review_dow_sin),multimodal_dfs,0.0,0.1,median,0.7818314824680298,False
+0,MAX(reviews.review_hour_cos),multimodal_dfs,0.0,0.1,median,0.7071067811865476,False
+0,MAX(reviews.review_hour_sin),multimodal_dfs,0.0,0.1,median,0.2588190451025207,False
+0,MAX(reviews.text_len),multimodal_dfs,0.0,0.1,median,71.0,False
+0,MEAN(reviews.has_image),multimodal_dfs,0.0,0.1,median,0.0,False
+0,MEAN(reviews.img_contrast),multimodal_dfs,0.871,1.0,constant,0,True
+0,MEAN(reviews.img_correlation),multimodal_dfs,0.871,1.0,constant,0,True
+0,MEAN(reviews.img_energy),multimodal_dfs,0.871,1.0,constant,0,True
+0,MEAN(reviews.img_homogeneity),multimodal_dfs,0.871,1.0,constant,0,True
+0,MEAN(reviews.rating),multimodal_dfs,0.0,0.1,median,3.0,False
+0,MEAN(reviews.review_dow_cos),multimodal_dfs,0.0,0.1,median,-0.0801937735804838,False
+0,MEAN(reviews.review_dow_sin),multimodal_dfs,0.0,0.1,median,0.0,False
+0,MEAN(reviews.review_hour_cos),multimodal_dfs,0.0,0.1,median,0.251763809020504,False
+0,MEAN(reviews.review_hour_sin),multimodal_dfs,0.0,0.1,median,-0.2768015896704795,False
+0,MEAN(reviews.text_len),multimodal_dfs,0.0,0.1,median,50.2,False
+0,CashbackAmount / CouponUsed,multimodal_dfs,0.3884,0.4,median,112.16,True
+0,CashbackAmount / DaySinceLastOrder,multimodal_dfs,0.3228,0.4,median,44.693333333333335,True
+0,CashbackAmount / HourSpendOnApp,multimodal_dfs,0.2442,0.4,median,58.92666666666667,True
+0,CashbackAmount / OrderAmountHikeFromlastYear,multimodal_dfs,0.2448,0.4,median,10.94909090909091,True
+0,CashbackAmount / OrderCount,multimodal_dfs,0.2387,0.4,median,84.82,True
+0,CashbackAmount / Tenure,multimodal_dfs,0.312,0.4,median,18.173,True
+0,CashbackAmount / WarehouseToHome,multimodal_dfs,0.2402,0.4,median,13.080769230769231,True
+0,CouponUsed / CashbackAmount,multimodal_dfs,0.2421,0.4,median,0.007193209610128,True
+0,CouponUsed / DaySinceLastOrder,multimodal_dfs,0.186,0.4,median,0.3333333333333333,True
+0,CouponUsed / HourSpendOnApp,multimodal_dfs,0.0875,0.1,median,0.5,False
+0,CouponUsed / OrderAmountHikeFromlastYear,multimodal_dfs,0.0899,0.1,median,0.0769230769230769,False
+0,CouponUsed / OrderCount,multimodal_dfs,0.0838,0.1,median,0.6,False
+0,CouponUsed / Tenure,multimodal_dfs,0.1728,0.4,median,0.1666666666666666,True
+0,CouponUsed / WarehouseToHome,multimodal_dfs,0.085,0.1,median,0.1,False
+0,DaySinceLastOrder / CashbackAmount,multimodal_dfs,0.2553,0.4,median,0.02025795272382865,True
+0,DaySinceLastOrder / CouponUsed,multimodal_dfs,0.2741,0.4,median,2.0,True
+0,DaySinceLastOrder / HourSpendOnApp,multimodal_dfs,0.1035,0.4,median,1.25,True
+0,DaySinceLastOrder / OrderAmountHikeFromlastYear,multimodal_dfs,0.1063,0.4,median,0.2142857142857142,True
+0,DaySinceLastOrder / OrderCount,multimodal_dfs,0.1001,0.4,median,1.5,True
+0,DaySinceLastOrder / Tenure,multimodal_dfs,0.1888,0.4,median,0.5,True
+0,DaySinceLastOrder / WarehouseToHome,multimodal_dfs,0.1013,0.4,median,0.2692307692307692,True
+0,HourSpendOnApp / CashbackAmount,multimodal_dfs,0.2448,0.4,median,0.0169453230908269,True
+0,HourSpendOnApp / CouponUsed,multimodal_dfs,0.2464,0.4,median,2.0,True
+0,HourSpendOnApp / DaySinceLastOrder,multimodal_dfs,0.1783,0.4,median,0.75,True
+0,HourSpendOnApp / OrderAmountHikeFromlastYear,multimodal_dfs,0.0933,0.1,median,0.1875,False
+0,HourSpendOnApp / OrderCount,multimodal_dfs,0.0872,0.1,median,1.5,False
+0,HourSpendOnApp / Tenure,multimodal_dfs,0.1611,0.4,median,0.2857142857142857,True
+0,HourSpendOnApp / WarehouseToHome,multimodal_dfs,0.0884,0.1,median,0.2222222222222222,False
+0,OrderAmountHikeFromlastYear / CashbackAmount,multimodal_dfs,0.2458,0.4,median,0.0912884715701617,True
+0,OrderAmountHikeFromlastYear / CouponUsed,multimodal_dfs,0.2686,0.4,median,11.0,True
+0,OrderAmountHikeFromlastYear / DaySinceLastOrder,multimodal_dfs,0.1949,0.4,median,4.0,True
+0,OrderAmountHikeFromlastYear / HourSpendOnApp,multimodal_dfs,0.0936,0.1,median,5.333333333333333,False
+0,OrderAmountHikeFromlastYear / OrderCount,multimodal_dfs,0.0899,0.1,median,8.0,False
+0,OrderAmountHikeFromlastYear / Tenure,multimodal_dfs,0.1792,0.4,median,1.6666666666666667,True
+0,OrderAmountHikeFromlastYear / WarehouseToHome,multimodal_dfs,0.0912,0.1,median,1.1875,False
+0,OrderCount / CashbackAmount,multimodal_dfs,0.2396,0.4,median,0.0117737093071172,True
+0,OrderCount / CouponUsed,multimodal_dfs,0.2578,0.4,median,1.0,True
+0,OrderCount / DaySinceLastOrder,multimodal_dfs,0.1857,0.4,median,0.6666666666666666,True
+0,OrderCount / HourSpendOnApp,multimodal_dfs,0.0875,0.1,median,0.6666666666666666,False
+0,OrderCount / OrderAmountHikeFromlastYear,multimodal_dfs,0.0899,0.1,median,0.125,False
+0,OrderCount / Tenure,multimodal_dfs,0.1728,0.4,median,0.2857142857142857,True
+0,OrderCount / WarehouseToHome,multimodal_dfs,0.085,0.1,median,0.1538461538461538,False
+0,Tenure / CashbackAmount,multimodal_dfs,0.2473,0.4,median,0.05057945029326295,True
+0,Tenure / CouponUsed,multimodal_dfs,0.2479,0.4,median,4.0,True
+0,Tenure / DaySinceLastOrder,multimodal_dfs,0.1777,0.4,median,1.6666666666666667,True
+0,Tenure / HourSpendOnApp,multimodal_dfs,0.0949,0.1,median,3.0,False
+0,Tenure / OrderAmountHikeFromlastYear,multimodal_dfs,0.0973,0.1,median,0.5333333333333333,False
+0,Tenure / OrderCount,multimodal_dfs,0.0912,0.1,median,3.0,False
+0,Tenure / WarehouseToHome,multimodal_dfs,0.0924,0.1,median,0.5833333333333334,False
+0,WarehouseToHome / CashbackAmount,multimodal_dfs,0.2411,0.4,median,0.0761904761904762,True
+0,WarehouseToHome / CouponUsed,multimodal_dfs,0.2485,0.4,median,8.0,True
+0,WarehouseToHome / DaySinceLastOrder,multimodal_dfs,0.1786,0.4,median,3.333333333333333,True
+0,WarehouseToHome / HourSpendOnApp,multimodal_dfs,0.0887,0.1,median,4.5,False
+0,WarehouseToHome / OrderAmountHikeFromlastYear,multimodal_dfs,0.0912,0.1,median,0.8421052631578947,False
+0,WarehouseToHome / OrderCount,multimodal_dfs,0.085,0.1,median,6.5,False
+0,WarehouseToHome / Tenure,multimodal_dfs,0.1589,0.4,median,1.5,True
+0,NATURAL_LOGARITHM(CashbackAmount),multimodal_dfs,0.2079,0.4,median,5.098768256635056,True
+0,NATURAL_LOGARITHM(CouponUsed),multimodal_dfs,0.2221,0.4,median,0.6931471805599453,True
+0,NATURAL_LOGARITHM(DaySinceLastOrder),multimodal_dfs,0.1472,0.4,median,1.3862943611198906,True
+0,NATURAL_LOGARITHM(HourSpendOnApp),multimodal_dfs,0.0456,0.1,median,1.0986122886681098,False
+0,NATURAL_LOGARITHM(OrderAmountHikeFromlastYear),multimodal_dfs,0.048,0.1,median,2.70805020110221,False
+0,NATURAL_LOGARITHM(OrderCount),multimodal_dfs,0.0419,0.1,median,0.6931471805599453,False
+0,NATURAL_LOGARITHM(Tenure),multimodal_dfs,0.1312,0.4,median,2.302585092994046,True
+0,NATURAL_LOGARITHM(WarehouseToHome),multimodal_dfs,0.0431,0.1,median,2.5649493574615367,False
+0,NATURAL_LOGARITHM(COUNT(reviews)),multimodal_dfs,0.0,0.1,median,0.6931471805599453,False
+0,NATURAL_LOGARITHM(MAX(reviews.has_image)),multimodal_dfs,0.871,1.0,constant,0,True
+0,NATURAL_LOGARITHM(MAX(reviews.img_contrast)),multimodal_dfs,0.871,1.0,constant,0,True
+0,NATURAL_LOGARITHM(MAX(reviews.img_energy)),multimodal_dfs,0.871,1.0,constant,0,True
+0,NATURAL_LOGARITHM(MAX(reviews.img_homogeneity)),multimodal_dfs,0.871,1.0,constant,0,True
+0,NATURAL_LOGARITHM(MAX(reviews.rating)),multimodal_dfs,0.0,0.1,median,1.0986122886681098,False
+0,NATURAL_LOGARITHM(MAX(reviews.text_len)),multimodal_dfs,0.0,0.1,median,4.262679877041316,False
+0,NATURAL_LOGARITHM(MEAN(reviews.has_image)),multimodal_dfs,0.871,1.0,constant,0,True
+0,NATURAL_LOGARITHM(MEAN(reviews.img_contrast)),multimodal_dfs,0.871,1.0,constant,0,True
+0,NATURAL_LOGARITHM(MEAN(reviews.img_energy)),multimodal_dfs,0.871,1.0,constant,0,True
+0,NATURAL_LOGARITHM(MEAN(reviews.img_homogeneity)),multimodal_dfs,0.871,1.0,constant,0,True
+0,NATURAL_LOGARITHM(MEAN(reviews.rating)),multimodal_dfs,0.0,0.1,median,1.0986122886681098,False
+0,NATURAL_LOGARITHM(MEAN(reviews.text_len)),multimodal_dfs,0.0,0.1,median,3.9160150266976834,False
+0,ReviewsText,review_text,0.0,1.0,constant,,False
+1,Tenure,numeric_continuous,0.045,0.1,median,9.0,False
+1,WarehouseToHome,numeric_continuous,0.0413,0.1,median,13.0,False
+1,HourSpendOnApp,numeric_continuous,0.0453,0.1,median,3.0,False
+1,NumberOfDeviceRegistered,numeric_continuous,0.0,0.1,median,4.0,False
+1,NumberOfAddress,numeric_continuous,0.0,0.1,median,3.0,False
+1,OrderAmountHikeFromlastYear,numeric_continuous,0.0493,0.1,median,15.0,False
+1,CouponUsed,numeric_continuous,0.0428,0.1,median,1.0,False
+1,OrderCount,numeric_continuous,0.0477,0.1,median,2.0,False
+1,DaySinceLastOrder,numeric_continuous,0.0536,0.1,median,3.0,False
+1,CashbackAmount,numeric_continuous,0.1977,0.4,median,163.77,True
+1,Complain,numeric_binary,0.0,0.1,median,0.0,False
+1,PreferredLoginDevice,categorical_nominal,0.0,0.1,most_frequent,Mobile Phone,False
+1,PreferredPaymentMode,categorical_nominal,0.0,0.1,most_frequent,Debit Card,False
+1,PreferedOrderCat,categorical_nominal,0.1472,1.0,constant,Missing,False
+1,MaritalStatus,categorical_nominal,0.0,0.1,most_frequent,Married,False
+1,SatisfactionScore,categorical_ordinal,0.0,0.1,most_frequent,3,False
+1,RecencyRatio,engineered_ratio,0.0986,0.1,median,0.0178359096313912,False
+1,CashbackPerOrder,engineered_ratio,0.2353,0.4,median,82.93458532707336,True
+1,CouponPerOrder,engineered_ratio,0.0905,0.1,median,0.5999988000024,False
+1,OrdersPerTenureMonth,engineered_ratio,0.0927,0.1,median,0.3076923076923077,False
+1,TenureStage,engineered_stage,0.045,0.1,median,2.0,False
+1,Segment,high_cardinality,0.0,0.1,most_frequent,Mobile Phone | Married | 3 | Mobile Phone,False
+1,COUNT(reviews),multimodal_dfs,0.0,0.1,median,2.0,False
+1,MAX(reviews.has_image),multimodal_dfs,0.0,0.1,median,0.0,False
+1,MAX(reviews.img_contrast),multimodal_dfs,0.8679,1.0,constant,0,True
+1,MAX(reviews.img_correlation),multimodal_dfs,0.8679,1.0,constant,0,True
+1,MAX(reviews.img_energy),multimodal_dfs,0.8679,1.0,constant,0,True
+1,MAX(reviews.img_homogeneity),multimodal_dfs,0.8679,1.0,constant,0,True
+1,MAX(reviews.rating),multimodal_dfs,0.0,0.1,median,3.0,False
+1,MAX(reviews.review_dow_cos),multimodal_dfs,0.0,0.1,median,0.6234898018587336,False
+1,MAX(reviews.review_dow_sin),multimodal_dfs,0.0,0.1,median,0.4338837391175582,False
+1,MAX(reviews.review_hour_cos),multimodal_dfs,0.0,0.1,median,0.7071067811865476,False
+1,MAX(reviews.review_hour_sin),multimodal_dfs,0.0,0.1,median,0.2588190451025207,False
+1,MAX(reviews.text_len),multimodal_dfs,0.0,0.1,median,72.0,False
+1,MEAN(reviews.has_image),multimodal_dfs,0.0,0.1,median,0.0,False
+1,MEAN(reviews.img_contrast),multimodal_dfs,0.8679,1.0,constant,0,True
+1,MEAN(reviews.img_correlation),multimodal_dfs,0.8679,1.0,constant,0,True
+1,MEAN(reviews.img_energy),multimodal_dfs,0.8679,1.0,constant,0,True
+1,MEAN(reviews.img_homogeneity),multimodal_dfs,0.8679,1.0,constant,0,True
+1,MEAN(reviews.rating),multimodal_dfs,0.0,0.1,median,3.0,False
+1,MEAN(reviews.review_dow_cos),multimodal_dfs,0.0,0.1,median,-0.0801937735804838,False
+1,MEAN(reviews.review_dow_sin),multimodal_dfs,0.0,0.1,median,0.0,False
+1,MEAN(reviews.review_hour_cos),multimodal_dfs,0.0,0.1,median,0.2414213562373095,False
+1,MEAN(reviews.review_hour_sin),multimodal_dfs,0.0,0.1,median,-0.2588190451025215,False
+1,MEAN(reviews.text_len),multimodal_dfs,0.0,0.1,median,50.5,False
+1,CashbackAmount / CouponUsed,multimodal_dfs,0.377,0.4,median,116.755,True
+1,CashbackAmount / DaySinceLastOrder,multimodal_dfs,0.3083,0.4,median,44.41708333333334,True
+1,CashbackAmount / HourSpendOnApp,multimodal_dfs,0.2331,0.4,median,58.69500000000001,True
+1,CashbackAmount / OrderAmountHikeFromlastYear,multimodal_dfs,0.2374,0.4,median,10.984593301435407,True
+1,CashbackAmount / OrderCount,multimodal_dfs,0.2353,0.4,median,82.935,True
+1,CashbackAmount / Tenure,multimodal_dfs,0.3021,0.4,median,18.02653409090909,True
+1,CashbackAmount / WarehouseToHome,multimodal_dfs,0.2282,0.4,median,12.9745,True
+1,CouponUsed / CashbackAmount,multimodal_dfs,0.2325,0.4,median,0.00714260205903655,True
+1,CouponUsed / DaySinceLastOrder,multimodal_dfs,0.178,0.4,median,0.3333333333333333,True
+1,CouponUsed / HourSpendOnApp,multimodal_dfs,0.0884,0.1,median,0.5,False
+1,CouponUsed / OrderAmountHikeFromlastYear,multimodal_dfs,0.0921,0.1,median,0.0769230769230769,False
+1,CouponUsed / OrderCount,multimodal_dfs,0.0905,0.1,median,0.6,False
+1,CouponUsed / Tenure,multimodal_dfs,0.174,0.4,median,0.1666666666666666,True
+1,CouponUsed / WarehouseToHome,multimodal_dfs,0.0841,0.1,median,0.1,False
+1,DaySinceLastOrder / CashbackAmount,multimodal_dfs,0.2427,0.4,median,0.0202675314146736,True
+1,DaySinceLastOrder / CouponUsed,multimodal_dfs,0.2661,0.4,median,2.0,True
+1,DaySinceLastOrder / HourSpendOnApp,multimodal_dfs,0.0992,0.1,median,1.25,False
+1,DaySinceLastOrder / OrderAmountHikeFromlastYear,multimodal_dfs,0.1029,0.4,median,0.2222222222222222,True
+1,DaySinceLastOrder / OrderCount,multimodal_dfs,0.1013,0.4,median,1.5,True
+1,DaySinceLastOrder / Tenure,multimodal_dfs,0.1848,0.4,median,0.5,True
+1,DaySinceLastOrder / WarehouseToHome,multimodal_dfs,0.0949,0.1,median,0.2758620689655172,False
+1,HourSpendOnApp / CashbackAmount,multimodal_dfs,0.2334,0.4,median,0.01702200093621,True
+1,HourSpendOnApp / CouponUsed,multimodal_dfs,0.2427,0.4,median,2.0,True
+1,HourSpendOnApp / DaySinceLastOrder,multimodal_dfs,0.1725,0.4,median,0.75,True
+1,HourSpendOnApp / OrderAmountHikeFromlastYear,multimodal_dfs,0.0945,0.1,median,0.1875,False
+1,HourSpendOnApp / OrderCount,multimodal_dfs,0.093,0.1,median,1.5,False
+1,HourSpendOnApp / Tenure,multimodal_dfs,0.1601,0.4,median,0.2857142857142857,True
+1,HourSpendOnApp / WarehouseToHome,multimodal_dfs,0.0865,0.1,median,0.2142857142857142,False
+1,OrderAmountHikeFromlastYear / CashbackAmount,multimodal_dfs,0.2381,0.4,median,0.09099994776874315,True
+1,OrderAmountHikeFromlastYear / CouponUsed,multimodal_dfs,0.2639,0.4,median,11.0,True
+1,OrderAmountHikeFromlastYear / DaySinceLastOrder,multimodal_dfs,0.1879,0.4,median,4.0,True
+1,OrderAmountHikeFromlastYear / HourSpendOnApp,multimodal_dfs,0.0949,0.1,median,5.333333333333333,False
+1,OrderAmountHikeFromlastYear / OrderCount,multimodal_dfs,0.097,0.1,median,7.5,False
+1,OrderAmountHikeFromlastYear / Tenure,multimodal_dfs,0.1808,0.4,median,1.625,True
+1,OrderAmountHikeFromlastYear / WarehouseToHome,multimodal_dfs,0.0905,0.1,median,1.1875,False
+1,OrderCount / CashbackAmount,multimodal_dfs,0.2359,0.4,median,0.0120460157802806,True
+1,OrderCount / CouponUsed,multimodal_dfs,0.2575,0.4,median,1.0,True
+1,OrderCount / DaySinceLastOrder,multimodal_dfs,0.1823,0.4,median,0.6666666666666666,True
+1,OrderCount / HourSpendOnApp,multimodal_dfs,0.093,0.1,median,0.6666666666666666,False
+1,OrderCount / OrderAmountHikeFromlastYear,multimodal_dfs,0.097,0.1,median,0.1333333333333333,False
+1,OrderCount / Tenure,multimodal_dfs,0.1786,0.4,median,0.2857142857142857,True
+1,OrderCount / WarehouseToHome,multimodal_dfs,0.089,0.1,median,0.1666666666666666,False
+1,Tenure / CashbackAmount,multimodal_dfs,0.235,0.4,median,0.05134790477979145,True
+1,Tenure / CouponUsed,multimodal_dfs,0.2433,0.4,median,4.0,True
+1,Tenure / DaySinceLastOrder,multimodal_dfs,0.1675,0.4,median,1.6666666666666667,True
+1,Tenure / HourSpendOnApp,multimodal_dfs,0.0905,0.1,median,3.0,False
+1,Tenure / OrderAmountHikeFromlastYear,multimodal_dfs,0.0942,0.1,median,0.5333333333333333,False
+1,Tenure / OrderCount,multimodal_dfs,0.0927,0.1,median,3.0,False
+1,Tenure / WarehouseToHome,multimodal_dfs,0.0862,0.1,median,0.5882352941176471,False
+1,WarehouseToHome / CashbackAmount,multimodal_dfs,0.2288,0.4,median,0.07705100401355275,True
+1,WarehouseToHome / CouponUsed,multimodal_dfs,0.2433,0.4,median,8.0,True
+1,WarehouseToHome / DaySinceLastOrder,multimodal_dfs,0.17,0.4,median,3.25,True
+1,WarehouseToHome / HourSpendOnApp,multimodal_dfs,0.0868,0.1,median,4.666666666666667,False
+1,WarehouseToHome / OrderAmountHikeFromlastYear,multimodal_dfs,0.0905,0.1,median,0.8421052631578947,False
+1,WarehouseToHome / OrderCount,multimodal_dfs,0.089,0.1,median,6.0,False
+1,WarehouseToHome / Tenure,multimodal_dfs,0.1574,0.4,median,1.5,True
+1,NATURAL_LOGARITHM(CashbackAmount),multimodal_dfs,0.1983,0.4,median,5.098463004461776,True
+1,NATURAL_LOGARITHM(CouponUsed),multimodal_dfs,0.2174,0.4,median,0.6931471805599453,True
+1,NATURAL_LOGARITHM(DaySinceLastOrder),multimodal_dfs,0.1395,0.4,median,1.3862943611198906,True
+1,NATURAL_LOGARITHM(HourSpendOnApp),multimodal_dfs,0.0456,0.1,median,1.0986122886681098,False
+1,NATURAL_LOGARITHM(OrderAmountHikeFromlastYear),multimodal_dfs,0.0493,0.1,median,2.70805020110221,False
+1,NATURAL_LOGARITHM(OrderCount),multimodal_dfs,0.0477,0.1,median,0.6931471805599453,False
+1,NATURAL_LOGARITHM(Tenure),multimodal_dfs,0.1315,0.4,median,2.302585092994046,True
+1,NATURAL_LOGARITHM(WarehouseToHome),multimodal_dfs,0.0413,0.1,median,2.5649493574615367,False
+1,NATURAL_LOGARITHM(COUNT(reviews)),multimodal_dfs,0.0,0.1,median,0.6931471805599453,False
+1,NATURAL_LOGARITHM(MAX(reviews.has_image)),multimodal_dfs,0.8679,1.0,constant,0,True
+1,NATURAL_LOGARITHM(MAX(reviews.img_contrast)),multimodal_dfs,0.8679,1.0,constant,0,True
+1,NATURAL_LOGARITHM(MAX(reviews.img_energy)),multimodal_dfs,0.8679,1.0,constant,0,True
+1,NATURAL_LOGARITHM(MAX(reviews.img_homogeneity)),multimodal_dfs,0.8679,1.0,constant,0,True
+1,NATURAL_LOGARITHM(MAX(reviews.rating)),multimodal_dfs,0.0,0.1,median,1.0986122886681098,False
+1,NATURAL_LOGARITHM(MAX(reviews.text_len)),multimodal_dfs,0.0,0.1,median,4.276666119016055,False
+1,NATURAL_LOGARITHM(MEAN(reviews.has_image)),multimodal_dfs,0.8679,1.0,constant,0,True
+1,NATURAL_LOGARITHM(MEAN(reviews.img_contrast)),multimodal_dfs,0.8679,1.0,constant,0,True
+1,NATURAL_LOGARITHM(MEAN(reviews.img_energy)),multimodal_dfs,0.8679,1.0,constant,0,True
+1,NATURAL_LOGARITHM(MEAN(reviews.img_homogeneity)),multimodal_dfs,0.8679,1.0,constant,0,True
+1,NATURAL_LOGARITHM(MEAN(reviews.rating)),multimodal_dfs,0.0,0.1,median,1.0986122886681098,False
+1,NATURAL_LOGARITHM(MEAN(reviews.text_len)),multimodal_dfs,0.0,0.1,median,3.9219733362813134,False
+1,ReviewsText,review_text,0.0,1.0,constant,,False
+2,Tenure,numeric_continuous,0.0505,0.1,median,9.0,False
+2,WarehouseToHome,numeric_continuous,0.0425,0.1,median,13.0,False
+2,HourSpendOnApp,numeric_continuous,0.0459,0.1,median,3.0,False
+2,NumberOfDeviceRegistered,numeric_continuous,0.0,0.1,median,4.0,False
+2,NumberOfAddress,numeric_continuous,0.0,0.1,median,3.0,False
+2,OrderAmountHikeFromlastYear,numeric_continuous,0.0499,0.1,median,15.0,False
+2,CouponUsed,numeric_continuous,0.04,0.1,median,1.0,False
+2,OrderCount,numeric_continuous,0.045,0.1,median,2.0,False
+2,DaySinceLastOrder,numeric_continuous,0.0564,0.1,median,3.0,False
+2,CashbackAmount,numeric_continuous,0.198,0.4,median,163.805,True
+2,Complain,numeric_binary,0.0,0.1,median,0.0,False
+2,PreferredLoginDevice,categorical_nominal,0.0,0.1,most_frequent,Mobile Phone,False
+2,PreferredPaymentMode,categorical_nominal,0.0,0.1,most_frequent,Debit Card,False
+2,PreferedOrderCat,categorical_nominal,0.1531,1.0,constant,Missing,False
+2,MaritalStatus,categorical_nominal,0.0,0.1,most_frequent,Married,False
+2,SatisfactionScore,categorical_ordinal,0.0,0.1,most_frequent,3,False
+2,RecencyRatio,engineered_ratio,0.1069,0.4,median,0.01786936146531197,True
+2,CashbackPerOrder,engineered_ratio,0.2313,0.4,median,84.09707951460243,True
+2,CouponPerOrder,engineered_ratio,0.085,0.1,median,0.5999988000024,False
+2,OrdersPerTenureMonth,engineered_ratio,0.0955,0.1,median,0.3,False
+2,TenureStage,engineered_stage,0.0505,0.1,median,2.0,False
+2,Segment,high_cardinality,0.0,0.1,most_frequent,Mobile Phone | Married | 3 | Mobile Phone,False
+2,COUNT(reviews),multimodal_dfs,0.0,0.1,median,2.0,False
+2,MAX(reviews.has_image),multimodal_dfs,0.0,0.1,median,0.0,False
+2,MAX(reviews.img_contrast),multimodal_dfs,0.8713,1.0,constant,0,True
+2,MAX(reviews.img_correlation),multimodal_dfs,0.8713,1.0,constant,0,True
+2,MAX(reviews.img_energy),multimodal_dfs,0.8713,1.0,constant,0,True
+2,MAX(reviews.img_homogeneity),multimodal_dfs,0.8713,1.0,constant,0,True
+2,MAX(reviews.rating),multimodal_dfs,0.0,0.1,median,3.0,False
+2,MAX(reviews.review_dow_cos),multimodal_dfs,0.0,0.1,median,0.6234898018587336,False
+2,MAX(reviews.review_dow_sin),multimodal_dfs,0.0,0.1,median,0.7818314824680298,False
+2,MAX(reviews.review_hour_cos),multimodal_dfs,0.0,0.1,median,0.7071067811865476,False
+2,MAX(reviews.review_hour_sin),multimodal_dfs,0.0,0.1,median,0.2588190451025207,False
+2,MAX(reviews.text_len),multimodal_dfs,0.0,0.1,median,71.0,False
+2,MEAN(reviews.has_image),multimodal_dfs,0.0,0.1,median,0.0,False
+2,MEAN(reviews.img_contrast),multimodal_dfs,0.8713,1.0,constant,0,True
+2,MEAN(reviews.img_correlation),multimodal_dfs,0.8713,1.0,constant,0,True
+2,MEAN(reviews.img_energy),multimodal_dfs,0.8713,1.0,constant,0,True
+2,MEAN(reviews.img_homogeneity),multimodal_dfs,0.8713,1.0,constant,0,True
+2,MEAN(reviews.rating),multimodal_dfs,0.0,0.1,median,3.0,False
+2,MEAN(reviews.review_dow_cos),multimodal_dfs,0.0,0.1,median,-0.0533187867933048,False
+2,MEAN(reviews.review_dow_sin),multimodal_dfs,0.0,0.1,median,0.0,False
+2,MEAN(reviews.review_hour_cos),multimodal_dfs,0.0,0.1,median,0.2499999999999999,False
+2,MEAN(reviews.review_hour_sin),multimodal_dfs,0.0,0.1,median,-0.2588190451025215,False
+2,MEAN(reviews.text_len),multimodal_dfs,0.0,0.1,median,50.0,False
+2,CashbackAmount / CouponUsed,multimodal_dfs,0.3822,0.4,median,112.67500000000001,True
+2,CashbackAmount / DaySinceLastOrder,multimodal_dfs,0.3107,0.4,median,43.81916666666667,True
+2,CashbackAmount / HourSpendOnApp,multimodal_dfs,0.2353,0.4,median,59.9,True
+2,CashbackAmount / OrderAmountHikeFromlastYear,multimodal_dfs,0.2405,0.4,median,11.005714285714287,True
+2,CashbackAmount / OrderCount,multimodal_dfs,0.2313,0.4,median,84.0975,True
+2,CashbackAmount / Tenure,multimodal_dfs,0.3064,0.4,median,18.24,True
+2,CashbackAmount / WarehouseToHome,multimodal_dfs,0.2294,0.4,median,13.181794871794873,True
+2,CouponUsed / CashbackAmount,multimodal_dfs,0.2322,0.4,median,0.0071756601607347,True
+2,CouponUsed / DaySinceLastOrder,multimodal_dfs,0.1783,0.4,median,0.3333333333333333,True
+2,CouponUsed / HourSpendOnApp,multimodal_dfs,0.0865,0.1,median,0.5,False
+2,CouponUsed / OrderAmountHikeFromlastYear,multimodal_dfs,0.0899,0.1,median,0.0769230769230769,False
+2,CouponUsed / OrderCount,multimodal_dfs,0.085,0.1,median,0.6,False
+2,CouponUsed / Tenure,multimodal_dfs,0.174,0.4,median,0.1666666666666666,True
+2,CouponUsed / WarehouseToHome,multimodal_dfs,0.0825,0.1,median,0.1,False
+2,DaySinceLastOrder / CashbackAmount,multimodal_dfs,0.2451,0.4,median,0.0203100670232211,True
+2,DaySinceLastOrder / CouponUsed,multimodal_dfs,0.2735,0.4,median,2.0,True
+2,DaySinceLastOrder / HourSpendOnApp,multimodal_dfs,0.1026,0.4,median,1.25,True
+2,DaySinceLastOrder / OrderAmountHikeFromlastYear,multimodal_dfs,0.1063,0.4,median,0.2307692307692307,True
+2,DaySinceLastOrder / OrderCount,multimodal_dfs,0.1013,0.4,median,1.5,True
+2,DaySinceLastOrder / Tenure,multimodal_dfs,0.1903,0.4,median,0.5,True
+2,DaySinceLastOrder / WarehouseToHome,multimodal_dfs,0.0989,0.1,median,0.2768199233716475,False
+2,HourSpendOnApp / CashbackAmount,multimodal_dfs,0.2353,0.4,median,0.0166926329846427,True
+2,HourSpendOnApp / CouponUsed,multimodal_dfs,0.2476,0.4,median,2.0,True
+2,HourSpendOnApp / DaySinceLastOrder,multimodal_dfs,0.1755,0.4,median,0.75,True
+2,HourSpendOnApp / OrderAmountHikeFromlastYear,multimodal_dfs,0.0958,0.1,median,0.1875,False
+2,HourSpendOnApp / OrderCount,multimodal_dfs,0.0909,0.1,median,1.5,False
+2,HourSpendOnApp / Tenure,multimodal_dfs,0.1642,0.4,median,0.2857142857142857,True
+2,HourSpendOnApp / WarehouseToHome,multimodal_dfs,0.0884,0.1,median,0.2142857142857142,False
+2,OrderAmountHikeFromlastYear / CashbackAmount,multimodal_dfs,0.2411,0.4,median,0.0908442021932385,True
+2,OrderAmountHikeFromlastYear / CouponUsed,multimodal_dfs,0.2695,0.4,median,11.0,True
+2,OrderAmountHikeFromlastYear / DaySinceLastOrder,multimodal_dfs,0.19,0.4,median,4.0,True
+2,OrderAmountHikeFromlastYear / HourSpendOnApp,multimodal_dfs,0.0964,0.1,median,5.333333333333333,False
+2,OrderAmountHikeFromlastYear / OrderCount,multimodal_dfs,0.0949,0.1,median,7.5,False
+2,OrderAmountHikeFromlastYear / Tenure,multimodal_dfs,0.1842,0.4,median,1.6666666666666667,True
+2,OrderAmountHikeFromlastYear / WarehouseToHome,multimodal_dfs,0.0924,0.1,median,1.181818181818182,False
+2,OrderCount / CashbackAmount,multimodal_dfs,0.2319,0.4,median,0.011889546211117551,True
+2,OrderCount / CouponUsed,multimodal_dfs,0.2596,0.4,median,1.0,True
+2,OrderCount / DaySinceLastOrder,multimodal_dfs,0.1814,0.4,median,0.6666666666666666,True
+2,OrderCount / HourSpendOnApp,multimodal_dfs,0.0912,0.1,median,0.6666666666666666,False
+2,OrderCount / OrderAmountHikeFromlastYear,multimodal_dfs,0.0949,0.1,median,0.1333333333333333,False
+2,OrderCount / Tenure,multimodal_dfs,0.1786,0.4,median,0.2857142857142857,True
+2,OrderCount / WarehouseToHome,multimodal_dfs,0.0875,0.1,median,0.1666666666666666,False
+2,Tenure / CashbackAmount,multimodal_dfs,0.2399,0.4,median,0.0509572686903981,True
+2,Tenure / CouponUsed,multimodal_dfs,0.2495,0.4,median,4.0,True
+2,Tenure / DaySinceLastOrder,multimodal_dfs,0.1728,0.4,median,1.6666666666666667,True
+2,Tenure / HourSpendOnApp,multimodal_dfs,0.097,0.1,median,3.0,False
+2,Tenure / OrderAmountHikeFromlastYear,multimodal_dfs,0.1004,0.4,median,0.5333333333333333,True
+2,Tenure / OrderCount,multimodal_dfs,0.0955,0.1,median,3.0,False
+2,Tenure / WarehouseToHome,multimodal_dfs,0.093,0.1,median,0.6,False
+2,WarehouseToHome / CashbackAmount,multimodal_dfs,0.2301,0.4,median,0.07579832729443414,True
+2,WarehouseToHome / CouponUsed,multimodal_dfs,0.2485,0.4,median,8.0,True
+2,WarehouseToHome / DaySinceLastOrder,multimodal_dfs,0.174,0.4,median,3.2,True
+2,WarehouseToHome / HourSpendOnApp,multimodal_dfs,0.089,0.1,median,4.666666666666667,False
+2,WarehouseToHome / OrderAmountHikeFromlastYear,multimodal_dfs,0.0924,0.1,median,0.8461538461538461,False
+2,WarehouseToHome / OrderCount,multimodal_dfs,0.0875,0.1,median,6.0,False
+2,WarehouseToHome / Tenure,multimodal_dfs,0.162,0.4,median,1.5,True
+2,NATURAL_LOGARITHM(CashbackAmount),multimodal_dfs,0.1986,0.4,median,5.098951373282405,True
+2,NATURAL_LOGARITHM(CouponUsed),multimodal_dfs,0.2224,0.4,median,0.6931471805599453,True
+2,NATURAL_LOGARITHM(DaySinceLastOrder),multimodal_dfs,0.1411,0.4,median,1.3862943611198906,True
+2,NATURAL_LOGARITHM(HourSpendOnApp),multimodal_dfs,0.0465,0.1,median,1.0986122886681098,False
+2,NATURAL_LOGARITHM(OrderAmountHikeFromlastYear),multimodal_dfs,0.0499,0.1,median,2.70805020110221,False
+2,NATURAL_LOGARITHM(OrderCount),multimodal_dfs,0.045,0.1,median,0.6931471805599453,False
+2,NATURAL_LOGARITHM(Tenure),multimodal_dfs,0.1343,0.4,median,2.302585092994046,True
+2,NATURAL_LOGARITHM(WarehouseToHome),multimodal_dfs,0.0425,0.1,median,2.5649493574615367,False
+2,NATURAL_LOGARITHM(COUNT(reviews)),multimodal_dfs,0.0,0.1,median,0.6931471805599453,False
+2,NATURAL_LOGARITHM(MAX(reviews.has_image)),multimodal_dfs,0.8713,1.0,constant,0,True
+2,NATURAL_LOGARITHM(MAX(reviews.img_contrast)),multimodal_dfs,0.8713,1.0,constant,0,True
+2,NATURAL_LOGARITHM(MAX(reviews.img_energy)),multimodal_dfs,0.8713,1.0,constant,0,True
+2,NATURAL_LOGARITHM(MAX(reviews.img_homogeneity)),multimodal_dfs,0.8713,1.0,constant,0,True
+2,NATURAL_LOGARITHM(MAX(reviews.rating)),multimodal_dfs,0.0,0.1,median,1.0986122886681098,False
+2,NATURAL_LOGARITHM(MAX(reviews.text_len)),multimodal_dfs,0.0,0.1,median,4.262679877041316,False
+2,NATURAL_LOGARITHM(MEAN(reviews.has_image)),multimodal_dfs,0.8713,1.0,constant,0,True
+2,NATURAL_LOGARITHM(MEAN(reviews.img_contrast)),multimodal_dfs,0.8713,1.0,constant,0,True
+2,NATURAL_LOGARITHM(MEAN(reviews.img_energy)),multimodal_dfs,0.8713,1.0,constant,0,True
+2,NATURAL_LOGARITHM(MEAN(reviews.img_homogeneity)),multimodal_dfs,0.8713,1.0,constant,0,True
+2,NATURAL_LOGARITHM(MEAN(reviews.rating)),multimodal_dfs,0.0,0.1,median,1.0986122886681098,False
+2,NATURAL_LOGARITHM(MEAN(reviews.text_len)),multimodal_dfs,0.0,0.1,median,3.912023005428146,False
+2,ReviewsText,review_text,0.0,1.0,constant,,False
+3,Tenure,numeric_continuous,0.0465,0.1,median,9.0,False
+3,WarehouseToHome,numeric_continuous,0.0416,0.1,median,13.0,False
+3,HourSpendOnApp,numeric_continuous,0.0462,0.1,median,3.0,False
+3,NumberOfDeviceRegistered,numeric_continuous,0.0,0.1,median,4.0,False
+3,NumberOfAddress,numeric_continuous,0.0,0.1,median,3.0,False
+3,OrderAmountHikeFromlastYear,numeric_continuous,0.0514,0.1,median,15.0,False
+3,CouponUsed,numeric_continuous,0.0428,0.1,median,1.0,False
+3,OrderCount,numeric_continuous,0.0459,0.1,median,2.0,False
+3,DaySinceLastOrder,numeric_continuous,0.0548,0.1,median,3.0,False
+3,CashbackAmount,numeric_continuous,0.2014,0.4,median,164.83,True
+3,Complain,numeric_binary,0.0,0.1,median,0.0,False
+3,PreferredLoginDevice,categorical_nominal,0.0,0.1,most_frequent,Mobile Phone,False
+3,PreferredPaymentMode,categorical_nominal,0.0,0.1,most_frequent,Debit Card,False
+3,PreferedOrderCat,categorical_nominal,0.1555,1.0,constant,Missing,False
+3,MaritalStatus,categorical_nominal,0.0,0.1,most_frequent,Married,False
+3,SatisfactionScore,categorical_ordinal,0.0,0.1,most_frequent,3,False
+3,RecencyRatio,engineered_ratio,0.1013,0.4,median,0.017738359201773836,True
+3,CashbackPerOrder,engineered_ratio,0.2359,0.4,median,84.51457742711287,True
+3,CouponPerOrder,engineered_ratio,0.0887,0.1,median,0.5999988000024,False
+3,OrdersPerTenureMonth,engineered_ratio,0.0924,0.1,median,0.3,False
+3,TenureStage,engineered_stage,0.0465,0.1,median,2.0,False
+3,Segment,high_cardinality,0.0,0.1,most_frequent,Laptop & Accessory | Married | 1 | Mobile Phone,False
+3,COUNT(reviews),multimodal_dfs,0.0,0.1,median,2.0,False
+3,MAX(reviews.has_image),multimodal_dfs,0.0,0.1,median,0.0,False
+3,MAX(reviews.img_contrast),multimodal_dfs,0.8719,1.0,constant,0,True
+3,MAX(reviews.img_correlation),multimodal_dfs,0.8719,1.0,constant,0,True
+3,MAX(reviews.img_energy),multimodal_dfs,0.8719,1.0,constant,0,True
+3,MAX(reviews.img_homogeneity),multimodal_dfs,0.8719,1.0,constant,0,True
+3,MAX(reviews.rating),multimodal_dfs,0.0,0.1,median,3.0,False
+3,MAX(reviews.review_dow_cos),multimodal_dfs,0.0,0.1,median,0.6234898018587334,False
+3,MAX(reviews.review_dow_sin),multimodal_dfs,0.0,0.1,median,0.7818314824680298,False
+3,MAX(reviews.review_hour_cos),multimodal_dfs,0.0,0.1,median,0.7071067811865476,False
+3,MAX(reviews.review_hour_sin),multimodal_dfs,0.0,0.1,median,0.2588190451025207,False
+3,MAX(reviews.text_len),multimodal_dfs,0.0,0.1,median,72.0,False
+3,MEAN(reviews.has_image),multimodal_dfs,0.0,0.1,median,0.0,False
+3,MEAN(reviews.img_contrast),multimodal_dfs,0.8719,1.0,constant,0,True
+3,MEAN(reviews.img_correlation),multimodal_dfs,0.8719,1.0,constant,0,True
+3,MEAN(reviews.img_energy),multimodal_dfs,0.8719,1.0,constant,0,True
+3,MEAN(reviews.img_homogeneity),multimodal_dfs,0.8719,1.0,constant,0,True
+3,MEAN(reviews.rating),multimodal_dfs,0.0,0.1,median,3.0,False
+3,MEAN(reviews.review_dow_cos),multimodal_dfs,0.0,0.1,median,-0.0801937735804838,False
+3,MEAN(reviews.review_dow_sin),multimodal_dfs,0.0,0.1,median,0.0,False
+3,MEAN(reviews.review_hour_cos),multimodal_dfs,0.0,0.1,median,0.2357022603955157,False
+3,MEAN(reviews.review_hour_sin),multimodal_dfs,0.0,0.1,median,-0.2886751345948128,False
+3,MEAN(reviews.text_len),multimodal_dfs,0.0,0.1,median,50.66666666666666,False
+3,CashbackAmount / CouponUsed,multimodal_dfs,0.3877,0.4,median,112.47,True
+3,CashbackAmount / DaySinceLastOrder,multimodal_dfs,0.3172,0.4,median,43.32,True
+3,CashbackAmount / HourSpendOnApp,multimodal_dfs,0.2402,0.4,median,59.126666666666665,True
+3,CashbackAmount / OrderAmountHikeFromlastYear,multimodal_dfs,0.2442,0.4,median,11.024452380952381,True
+3,CashbackAmount / OrderCount,multimodal_dfs,0.2359,0.4,median,84.515,True
+3,CashbackAmount / Tenure,multimodal_dfs,0.3111,0.4,median,18.42888888888889,True
+3,CashbackAmount / WarehouseToHome,multimodal_dfs,0.2322,0.4,median,13.267142857142858,True
+3,CouponUsed / CashbackAmount,multimodal_dfs,0.2365,0.4,median,0.0071484738008435,True
+3,CouponUsed / DaySinceLastOrder,multimodal_dfs,0.1811,0.4,median,0.3333333333333333,True
+3,CouponUsed / HourSpendOnApp,multimodal_dfs,0.0896,0.1,median,0.5,False
+3,CouponUsed / OrderAmountHikeFromlastYear,multimodal_dfs,0.0942,0.1,median,0.0769230769230769,False
+3,CouponUsed / OrderCount,multimodal_dfs,0.0887,0.1,median,0.6,False
+3,CouponUsed / Tenure,multimodal_dfs,0.1783,0.4,median,0.1666666666666666,True
+3,CouponUsed / WarehouseToHome,multimodal_dfs,0.0844,0.1,median,0.1,False
+3,DaySinceLastOrder / CashbackAmount,multimodal_dfs,0.2479,0.4,median,0.02031212975008075,True
+3,DaySinceLastOrder / CouponUsed,multimodal_dfs,0.2732,0.4,median,2.0,True
+3,DaySinceLastOrder / HourSpendOnApp,multimodal_dfs,0.1013,0.4,median,1.25,True
+3,DaySinceLastOrder / OrderAmountHikeFromlastYear,multimodal_dfs,0.1063,0.4,median,0.2222222222222222,True
+3,DaySinceLastOrder / OrderCount,multimodal_dfs,0.1007,0.4,median,1.5,True
+3,DaySinceLastOrder / Tenure,multimodal_dfs,0.19,0.4,median,0.5,True
+3,DaySinceLastOrder / WarehouseToHome,multimodal_dfs,0.0964,0.1,median,0.2777777777777778,False
+3,HourSpendOnApp / CashbackAmount,multimodal_dfs,0.2405,0.4,median,0.0168947457340767,True
+3,HourSpendOnApp / CouponUsed,multimodal_dfs,0.2501,0.4,median,2.0,True
+3,HourSpendOnApp / DaySinceLastOrder,multimodal_dfs,0.1752,0.4,median,0.75,True
+3,HourSpendOnApp / OrderAmountHikeFromlastYear,multimodal_dfs,0.0976,0.1,median,0.1875,False
+3,HourSpendOnApp / OrderCount,multimodal_dfs,0.0921,0.1,median,1.5,False
+3,HourSpendOnApp / Tenure,multimodal_dfs,0.1651,0.4,median,0.2857142857142857,True
+3,HourSpendOnApp / WarehouseToHome,multimodal_dfs,0.0878,0.1,median,0.2142857142857142,False
+3,OrderAmountHikeFromlastYear / CashbackAmount,multimodal_dfs,0.2451,0.4,median,0.0906735751295336,True
+3,OrderAmountHikeFromlastYear / CouponUsed,multimodal_dfs,0.2732,0.4,median,11.0,True
+3,OrderAmountHikeFromlastYear / DaySinceLastOrder,multimodal_dfs,0.1928,0.4,median,4.0,True
+3,OrderAmountHikeFromlastYear / HourSpendOnApp,multimodal_dfs,0.0982,0.1,median,5.333333333333333,False
+3,OrderAmountHikeFromlastYear / OrderCount,multimodal_dfs,0.0973,0.1,median,7.5,False
+3,OrderAmountHikeFromlastYear / Tenure,multimodal_dfs,0.1872,0.4,median,1.6428571428571428,True
+3,OrderAmountHikeFromlastYear / WarehouseToHome,multimodal_dfs,0.093,0.1,median,1.181818181818182,False
+3,OrderCount / CashbackAmount,multimodal_dfs,0.2368,0.4,median,0.01182592506816405,True
+3,OrderCount / CouponUsed,multimodal_dfs,0.2639,0.4,median,1.0,True
+3,OrderCount / DaySinceLastOrder,multimodal_dfs,0.1839,0.4,median,0.6666666666666666,True
+3,OrderCount / HourSpendOnApp,multimodal_dfs,0.0924,0.1,median,0.6666666666666666,False
+3,OrderCount / OrderAmountHikeFromlastYear,multimodal_dfs,0.0973,0.1,median,0.1333333333333333,False
+3,OrderCount / Tenure,multimodal_dfs,0.1811,0.4,median,0.2857142857142857,True
+3,OrderCount / WarehouseToHome,multimodal_dfs,0.0875,0.1,median,0.1666666666666666,False
+3,Tenure / CashbackAmount,multimodal_dfs,0.2393,0.4,median,0.04939627573869995,True
+3,Tenure / CouponUsed,multimodal_dfs,0.2507,0.4,median,4.0,True
+3,Tenure / DaySinceLastOrder,multimodal_dfs,0.1706,0.4,median,1.6666666666666667,True
+3,Tenure / HourSpendOnApp,multimodal_dfs,0.0933,0.1,median,3.0,False
+3,Tenure / OrderAmountHikeFromlastYear,multimodal_dfs,0.0979,0.1,median,0.5333333333333333,False
+3,Tenure / OrderCount,multimodal_dfs,0.0924,0.1,median,3.0,False
+3,Tenure / WarehouseToHome,multimodal_dfs,0.0881,0.1,median,0.5833333333333334,False
+3,WarehouseToHome / CashbackAmount,multimodal_dfs,0.2331,0.4,median,0.07531701950934595,True
+3,WarehouseToHome / CouponUsed,multimodal_dfs,0.2498,0.4,median,8.0,True
+3,WarehouseToHome / DaySinceLastOrder,multimodal_dfs,0.1719,0.4,median,3.2222222222222223,True
+3,WarehouseToHome / HourSpendOnApp,multimodal_dfs,0.0884,0.1,median,4.666666666666667,False
+3,WarehouseToHome / OrderAmountHikeFromlastYear,multimodal_dfs,0.093,0.1,median,0.8461538461538461,False
+3,WarehouseToHome / OrderCount,multimodal_dfs,0.0875,0.1,median,6.0,False
+3,WarehouseToHome / Tenure,multimodal_dfs,0.1623,0.4,median,1.5,True
+3,NATURAL_LOGARITHM(CashbackAmount),multimodal_dfs,0.2023,0.4,median,5.105187606898979,True
+3,NATURAL_LOGARITHM(CouponUsed),multimodal_dfs,0.2245,0.4,median,0.6931471805599453,True
+3,NATURAL_LOGARITHM(DaySinceLastOrder),multimodal_dfs,0.1423,0.4,median,1.3862943611198906,True
+3,NATURAL_LOGARITHM(HourSpendOnApp),multimodal_dfs,0.0468,0.1,median,1.0986122886681098,False
+3,NATURAL_LOGARITHM(OrderAmountHikeFromlastYear),multimodal_dfs,0.0514,0.1,median,2.70805020110221,False
+3,NATURAL_LOGARITHM(OrderCount),multimodal_dfs,0.0459,0.1,median,0.6931471805599453,False
+3,NATURAL_LOGARITHM(Tenure),multimodal_dfs,0.1358,0.4,median,2.302585092994046,True
+3,NATURAL_LOGARITHM(WarehouseToHome),multimodal_dfs,0.0416,0.1,median,2.5649493574615367,False
+3,NATURAL_LOGARITHM(COUNT(reviews)),multimodal_dfs,0.0,0.1,median,0.6931471805599453,False
+3,NATURAL_LOGARITHM(MAX(reviews.has_image)),multimodal_dfs,0.8719,1.0,constant,0,True
+3,NATURAL_LOGARITHM(MAX(reviews.img_contrast)),multimodal_dfs,0.8719,1.0,constant,0,True
+3,NATURAL_LOGARITHM(MAX(reviews.img_energy)),multimodal_dfs,0.8719,1.0,constant,0,True
+3,NATURAL_LOGARITHM(MAX(reviews.img_homogeneity)),multimodal_dfs,0.8719,1.0,constant,0,True
+3,NATURAL_LOGARITHM(MAX(reviews.rating)),multimodal_dfs,0.0,0.1,median,1.0986122886681098,False
+3,NATURAL_LOGARITHM(MAX(reviews.text_len)),multimodal_dfs,0.0,0.1,median,4.276666119016055,False
+3,NATURAL_LOGARITHM(MEAN(reviews.has_image)),multimodal_dfs,0.8719,1.0,constant,0,True
+3,NATURAL_LOGARITHM(MEAN(reviews.img_contrast)),multimodal_dfs,0.8719,1.0,constant,0,True
+3,NATURAL_LOGARITHM(MEAN(reviews.img_energy)),multimodal_dfs,0.8719,1.0,constant,0,True
+3,NATURAL_LOGARITHM(MEAN(reviews.img_homogeneity)),multimodal_dfs,0.8719,1.0,constant,0,True
+3,NATURAL_LOGARITHM(MEAN(reviews.rating)),multimodal_dfs,0.0,0.1,median,1.0986122886681098,False
+3,NATURAL_LOGARITHM(MEAN(reviews.text_len)),multimodal_dfs,0.0,0.1,median,3.9252682321781664,False
+3,ReviewsText,review_text,0.0,1.0,constant,,False
+4,Tenure,numeric_continuous,0.0502,0.1,median,9.0,False
+4,WarehouseToHome,numeric_continuous,0.0434,0.1,median,13.0,False
+4,HourSpendOnApp,numeric_continuous,0.0453,0.1,median,3.0,False
+4,NumberOfDeviceRegistered,numeric_continuous,0.0,0.1,median,4.0,False
+4,NumberOfAddress,numeric_continuous,0.0,0.1,median,3.0,False
+4,OrderAmountHikeFromlastYear,numeric_continuous,0.0465,0.1,median,15.0,False
+4,CouponUsed,numeric_continuous,0.0431,0.1,median,1.0,False
+4,OrderCount,numeric_continuous,0.045,0.1,median,2.0,False
+4,DaySinceLastOrder,numeric_continuous,0.0517,0.1,median,3.0,False
+4,CashbackAmount,numeric_continuous,0.201,0.4,median,163.33,True
+4,Complain,numeric_binary,0.0,0.1,median,0.0,False
+4,PreferredLoginDevice,categorical_nominal,0.0,0.1,most_frequent,Mobile Phone,False
+4,PreferredPaymentMode,categorical_nominal,0.0,0.1,most_frequent,Debit Card,False
+4,PreferedOrderCat,categorical_nominal,0.1469,1.0,constant,Missing,False
+4,MaritalStatus,categorical_nominal,0.0,0.1,most_frequent,Married,False
+4,SatisfactionScore,categorical_ordinal,0.0,0.1,most_frequent,3,False
+4,RecencyRatio,engineered_ratio,0.1019,0.4,median,0.016645326504481434,True
+4,CashbackPerOrder,engineered_ratio,0.234,0.4,median,83.47708261458692,True
+4,CouponPerOrder,engineered_ratio,0.0881,0.1,median,0.5999988000024,False
+4,OrdersPerTenureMonth,engineered_ratio,0.0951,0.1,median,0.30434782608695654,False
+4,TenureStage,engineered_stage,0.0502,0.1,median,2.0,False
+4,Segment,high_cardinality,0.0,0.1,most_frequent,Mobile Phone | Married | 3 | Mobile Phone,False
+4,COUNT(reviews),multimodal_dfs,0.0,0.1,median,2.0,False
+4,MAX(reviews.has_image),multimodal_dfs,0.0,0.1,median,0.0,False
+4,MAX(reviews.img_contrast),multimodal_dfs,0.8701,1.0,constant,0,True
+4,MAX(reviews.img_correlation),multimodal_dfs,0.8701,1.0,constant,0,True
+4,MAX(reviews.img_energy),multimodal_dfs,0.8701,1.0,constant,0,True
+4,MAX(reviews.img_homogeneity),multimodal_dfs,0.8701,1.0,constant,0,True
+4,MAX(reviews.rating),multimodal_dfs,0.0,0.1,median,3.0,False
+4,MAX(reviews.review_dow_cos),multimodal_dfs,0.0,0.1,median,0.6234898018587336,False
+4,MAX(reviews.review_dow_sin),multimodal_dfs,0.0,0.1,median,0.7818314824680298,False
+4,MAX(reviews.review_hour_cos),multimodal_dfs,0.0,0.1,median,0.7071067811865476,False
+4,MAX(reviews.review_hour_sin),multimodal_dfs,0.0,0.1,median,0.2588190451025207,False
+4,MAX(reviews.text_len),multimodal_dfs,0.0,0.1,median,72.0,False
+4,MEAN(reviews.has_image),multimodal_dfs,0.0,0.1,median,0.0,False
+4,MEAN(reviews.img_contrast),multimodal_dfs,0.8701,1.0,constant,0,True
+4,MEAN(reviews.img_correlation),multimodal_dfs,0.8701,1.0,constant,0,True
+4,MEAN(reviews.img_energy),multimodal_dfs,0.8701,1.0,constant,0,True
+4,MEAN(reviews.img_homogeneity),multimodal_dfs,0.8701,1.0,constant,0,True
+4,MEAN(reviews.rating),multimodal_dfs,0.0,0.1,median,3.0,False
+4,MEAN(reviews.review_dow_cos),multimodal_dfs,0.0,0.1,median,-0.0801937735804838,False
+4,MEAN(reviews.review_dow_sin),multimodal_dfs,0.0,0.1,median,0.0,False
+4,MEAN(reviews.review_hour_cos),multimodal_dfs,0.0,0.1,median,0.24999999999999978,False
+4,MEAN(reviews.review_hour_sin),multimodal_dfs,0.0,0.1,median,-0.2863703305156274,False
+4,MEAN(reviews.text_len),multimodal_dfs,0.0,0.1,median,50.9,False
+4,CashbackAmount / CouponUsed,multimodal_dfs,0.3852,0.4,median,116.125,True
+4,CashbackAmount / DaySinceLastOrder,multimodal_dfs,0.3116,0.4,median,44.90125,True
+4,CashbackAmount / HourSpendOnApp,multimodal_dfs,0.2371,0.4,median,58.656666666666666,True
+4,CashbackAmount / OrderAmountHikeFromlastYear,multimodal_dfs,0.2389,0.4,median,10.963571428571427,True
+4,CashbackAmount / OrderCount,multimodal_dfs,0.234,0.4,median,83.47749999999999,True
+4,CashbackAmount / Tenure,multimodal_dfs,0.3107,0.4,median,18.173,True
+4,CashbackAmount / WarehouseToHome,multimodal_dfs,0.234,0.4,median,13.277211538461538,True
+4,CouponUsed / CashbackAmount,multimodal_dfs,0.2368,0.4,median,0.0070681368391292,True
+4,CouponUsed / DaySinceLastOrder,multimodal_dfs,0.1783,0.4,median,0.3333333333333333,True
+4,CouponUsed / HourSpendOnApp,multimodal_dfs,0.089,0.1,median,0.5,False
+4,CouponUsed / OrderAmountHikeFromlastYear,multimodal_dfs,0.0896,0.1,median,0.0769230769230769,False
+4,CouponUsed / OrderCount,multimodal_dfs,0.0881,0.1,median,0.6,False
+4,CouponUsed / Tenure,multimodal_dfs,0.1829,0.4,median,0.1666666666666666,True
+4,CouponUsed / WarehouseToHome,multimodal_dfs,0.0865,0.1,median,0.1,False
+4,DaySinceLastOrder / CashbackAmount,multimodal_dfs,0.2457,0.4,median,0.0201938610662358,True
+4,DaySinceLastOrder / CouponUsed,multimodal_dfs,0.2694,0.4,median,2.0,True
+4,DaySinceLastOrder / HourSpendOnApp,multimodal_dfs,0.0973,0.1,median,1.0,False
+4,DaySinceLastOrder / OrderAmountHikeFromlastYear,multimodal_dfs,0.0982,0.1,median,0.2142857142857142,False
+4,DaySinceLastOrder / OrderCount,multimodal_dfs,0.0967,0.1,median,1.5,False
+4,DaySinceLastOrder / Tenure,multimodal_dfs,0.1909,0.4,median,0.5,True
+4,DaySinceLastOrder / WarehouseToHome,multimodal_dfs,0.0951,0.1,median,0.2727272727272727,False
+4,HourSpendOnApp / CashbackAmount,multimodal_dfs,0.2371,0.4,median,0.01701247405686035,True
+4,HourSpendOnApp / CouponUsed,multimodal_dfs,0.2488,0.4,median,2.0,True
+4,HourSpendOnApp / DaySinceLastOrder,multimodal_dfs,0.1718,0.4,median,0.75,True
+4,HourSpendOnApp / OrderAmountHikeFromlastYear,multimodal_dfs,0.0917,0.1,median,0.1875,False
+4,HourSpendOnApp / OrderCount,multimodal_dfs,0.0902,0.1,median,1.5,False
+4,HourSpendOnApp / Tenure,multimodal_dfs,0.1687,0.4,median,0.2857142857142857,True
+4,HourSpendOnApp / WarehouseToHome,multimodal_dfs,0.0887,0.1,median,0.2142857142857142,False
+4,OrderAmountHikeFromlastYear / CashbackAmount,multimodal_dfs,0.2395,0.4,median,0.0911992704058367,True
+4,OrderAmountHikeFromlastYear / CouponUsed,multimodal_dfs,0.2675,0.4,median,11.0,True
+4,OrderAmountHikeFromlastYear / DaySinceLastOrder,multimodal_dfs,0.1841,0.4,median,4.0,True
+4,OrderAmountHikeFromlastYear / HourSpendOnApp,multimodal_dfs,0.0924,0.1,median,5.333333333333333,False
+4,OrderAmountHikeFromlastYear / OrderCount,multimodal_dfs,0.0914,0.1,median,7.5,False
+4,OrderAmountHikeFromlastYear / Tenure,multimodal_dfs,0.1863,0.4,median,1.6363636363636365,True
+4,OrderAmountHikeFromlastYear / WarehouseToHome,multimodal_dfs,0.0899,0.1,median,1.181818181818182,False
+4,OrderCount / CashbackAmount,multimodal_dfs,0.2346,0.4,median,0.01197784100490105,True
+4,OrderCount / CouponUsed,multimodal_dfs,0.2608,0.4,median,1.0,True
+4,OrderCount / DaySinceLastOrder,multimodal_dfs,0.1783,0.4,median,0.6666666666666666,True
+4,OrderCount / HourSpendOnApp,multimodal_dfs,0.0905,0.1,median,0.6666666666666666,False
+4,OrderCount / OrderAmountHikeFromlastYear,multimodal_dfs,0.0914,0.1,median,0.1333333333333333,False
+4,OrderCount / Tenure,multimodal_dfs,0.1844,0.4,median,0.2857142857142857,True
+4,OrderCount / WarehouseToHome,multimodal_dfs,0.0884,0.1,median,0.1612903225806451,False
+4,Tenure / CashbackAmount,multimodal_dfs,0.2408,0.4,median,0.0511390051139005,True
+4,Tenure / CouponUsed,multimodal_dfs,0.2515,0.4,median,4.0,True
+4,Tenure / DaySinceLastOrder,multimodal_dfs,0.17,0.4,median,1.6666666666666667,True
+4,Tenure / HourSpendOnApp,multimodal_dfs,0.0961,0.1,median,3.0,False
+4,Tenure / OrderAmountHikeFromlastYear,multimodal_dfs,0.0967,0.1,median,0.5384615384615384,False
+4,Tenure / OrderCount,multimodal_dfs,0.0951,0.1,median,3.0,False
+4,Tenure / WarehouseToHome,multimodal_dfs,0.0936,0.1,median,0.6,False
+4,WarehouseToHome / CashbackAmount,multimodal_dfs,0.2346,0.4,median,0.07530571677345725,True
+4,WarehouseToHome / CouponUsed,multimodal_dfs,0.2503,0.4,median,8.0,True
+4,WarehouseToHome / DaySinceLastOrder,multimodal_dfs,0.1703,0.4,median,3.25,True
+4,WarehouseToHome / HourSpendOnApp,multimodal_dfs,0.0893,0.1,median,4.583333333333334,False
+4,WarehouseToHome / OrderAmountHikeFromlastYear,multimodal_dfs,0.0899,0.1,median,0.8461538461538461,False
+4,WarehouseToHome / OrderCount,multimodal_dfs,0.0884,0.1,median,6.2,False
+4,WarehouseToHome / Tenure,multimodal_dfs,0.1663,0.4,median,1.5,True
+4,NATURAL_LOGARITHM(CashbackAmount),multimodal_dfs,0.2017,0.4,median,5.09583391793013,True
+4,NATURAL_LOGARITHM(CouponUsed),multimodal_dfs,0.2235,0.4,median,0.6931471805599453,True
+4,NATURAL_LOGARITHM(DaySinceLastOrder),multimodal_dfs,0.1382,0.4,median,1.3862943611198906,True
+4,NATURAL_LOGARITHM(HourSpendOnApp),multimodal_dfs,0.0459,0.1,median,1.0986122886681098,False
+4,NATURAL_LOGARITHM(OrderAmountHikeFromlastYear),multimodal_dfs,0.0465,0.1,median,2.70805020110221,False
+4,NATURAL_LOGARITHM(OrderCount),multimodal_dfs,0.045,0.1,median,0.6931471805599453,False
+4,NATURAL_LOGARITHM(Tenure),multimodal_dfs,0.1398,0.4,median,2.302585092994046,True
+4,NATURAL_LOGARITHM(WarehouseToHome),multimodal_dfs,0.0434,0.1,median,2.5649493574615367,False
+4,NATURAL_LOGARITHM(COUNT(reviews)),multimodal_dfs,0.0,0.1,median,0.6931471805599453,False
+4,NATURAL_LOGARITHM(MAX(reviews.has_image)),multimodal_dfs,0.8701,1.0,constant,0,True
+4,NATURAL_LOGARITHM(MAX(reviews.img_contrast)),multimodal_dfs,0.8701,1.0,constant,0,True
+4,NATURAL_LOGARITHM(MAX(reviews.img_energy)),multimodal_dfs,0.8701,1.0,constant,0,True
+4,NATURAL_LOGARITHM(MAX(reviews.img_homogeneity)),multimodal_dfs,0.8701,1.0,constant,0,True
+4,NATURAL_LOGARITHM(MAX(reviews.rating)),multimodal_dfs,0.0,0.1,median,1.0986122886681098,False
+4,NATURAL_LOGARITHM(MAX(reviews.text_len)),multimodal_dfs,0.0,0.1,median,4.276666119016055,False
+4,NATURAL_LOGARITHM(MEAN(reviews.has_image)),multimodal_dfs,0.8701,1.0,constant,0,True
+4,NATURAL_LOGARITHM(MEAN(reviews.img_contrast)),multimodal_dfs,0.8701,1.0,constant,0,True
+4,NATURAL_LOGARITHM(MEAN(reviews.img_energy)),multimodal_dfs,0.8701,1.0,constant,0,True
+4,NATURAL_LOGARITHM(MEAN(reviews.img_homogeneity)),multimodal_dfs,0.8701,1.0,constant,0,True
+4,NATURAL_LOGARITHM(MEAN(reviews.rating)),multimodal_dfs,0.0,0.1,median,1.0986122886681098,False
+4,NATURAL_LOGARITHM(MEAN(reviews.text_len)),multimodal_dfs,0.0,0.1,median,3.9298609936543807,False
+4,ReviewsText,review_text,0.0,1.0,constant,,False

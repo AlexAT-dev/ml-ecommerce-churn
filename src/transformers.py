@@ -96,6 +96,11 @@ def _yeo_johnson(**kwargs) -> PowerTransformer:
     return PowerTransformer(**params)
 
 
+def _review_text_svd(**kwargs):
+    from src.extraction import ReviewTextSVD   # пізній імпорт: extraction тягне важкі залежності
+    return ReviewTextSVD(**kwargs)
+
+
 def _ordinal(**kwargs) -> OrdinalEncoder:
     params = {"handle_unknown": "use_encoded_value", "unknown_value": -1}
     params.update(kwargs)
@@ -113,4 +118,6 @@ TRANSFORMER_REGISTRY: Dict[str, Callable[..., BaseEstimator]] = {
     # --- ЛР2 ---
     "oof_woe": OOFWoEEncoder,
     "yeo_johnson": _yeo_johnson,
+    # --- ЛР3 ---
+    "review_text_svd": _review_text_svd,
 }

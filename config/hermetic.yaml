@@ -1,0 +1,46 @@
+# ЛР3 — герметичний конвеєр, вкладена CV, підбір гіперпараметрів.
+
+split:
+  # «Недоторканний» holdout — у ЛР3 не використовується взагалі (ні для навчання, ні для вибору моделі);
+  # зберігається під DVC для ЛР4 (генератор продакшен-потоку / еталон) і ЛР5.
+  holdout_share: 0.20
+  seed: 42
+
+text_block:            # ланка ReviewTextSVD (TF-IDF/SVD — тепер усередині фолдів)
+  max_features: 500
+  n_components: 5
+  random_state: 42
+  aggregations: [mean, max]
+
+resampler:             # обрана ланка (обґрунтування — docs/lab3_report.md, §3)
+  method: SMOTE
+  sampling_strategy: 0.5      # міноритарний клас до 50% мажоритарного (≈ 33% частки), не до 1:1 — далі ще cost-sensitive ваги
+  k_neighbors: 5              # дефолт; підбирається Optuna у [3, 10]
+  random_state: 42
+
+selection:             # той самий Filter → Wrapper, що в Експ. 3 ЛР2, але всередині фолду
+  filter_k: 30
+  filter_score: f_classif     # у ЛР2 — mutual_info; у вкладеній CV f_classif у ~35× швидший і детермінований
+  sfs_k_features: 15
+  sfs_cv: 3
+  sfs_scoring: roc_auc
+
+nested_cv:
+  outer: {splitter: StratifiedKFold, n_splits: 5, shuffle: true, random_state: 42}
+  inner: {splitter: StratifiedKFold, n_splits: 3, shuffle: true, random_state: 42}
+  optimizer: optuna           # TPE; простір включає гіперпараметр ланки (k_neighbors), не лише класифікатора
+  n_trials: 30
+  objective: roc_auc          # пороговонезалежна метрика для вибору гіперпараметрів; поріг — окремо (cost-sensitive)
+  sampler_seed: 42
+
+search_space:
+  LR:
+    C: {low: 1.0e-4, high: 1.0e+2, log: true}
+    penalty: [l1, l2]
+    k_neighbors: {low: 3, high: 10}
+  RF:
+    n_estimators: {low: 100, high: 500}
+    max_depth: {low: 3, high: 20}
+    k_neighbors: {low: 3, high: 10}
+
+cache_dir: data/processed/joblib_cache   # кеш ланок prep/filter/SFS між спробами Optuna (не впливає на результат)
