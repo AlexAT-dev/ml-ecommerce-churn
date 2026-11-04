@@ -13,7 +13,7 @@
 | Штучні пропуски | MCAR seed 42: CashbackAmount 20%, PreferedOrderCat 15% (`config/data.yaml`) | ✅ |
 | Евристика | `Tenure <= 1 OR Complain == 1` → Acc 0.699 / Rec 0.848 / Prec 0.341 | ✅ |
 | ML Metric | Recall ≥ 0.80 при Precision ≥ 0.50; ROC-AUC ≥ 0.85 | ✅ |
-| Трек ЛР4 | 4A / 4B / 4C | не обрано |
+| Трек ЛР4 | **4A** (semi-supervised + active learning); 4B відпав — немає `make_prod_windows.py`; 4D (LLM/RAG, Ollama) — можливо після ЛР5 | ✅ |
 | Python | 3.11.9 у `.venv`, kernel `ml-labs`; pandas 2.3.3 (ЛР2: featuretools не працює з pandas 3) | ✅ |
 
 ## Git
@@ -28,8 +28,8 @@
 
 - [x] ЛР1 — здано (тег lab1-v1.0)
 - [x] ЛР2 — здано (тег lab2-v1.0)
-- [x] ЛР3 — готово, чекає коміту/тегу `lab3-v1.0` (його читає ЛР4 через dvc.api) і захисту
-- [ ] ЛР4 (трек: ?)
+- [x] ЛР3 — здано (тег lab3-v1.0)
+- [x] ЛР4 (трек 4A) — готово, чекає коміту/тегу `lab4-v1.0` і захисту
 - [ ] ЛР5
 
 ## Нотатки для наступних ЛР
@@ -48,3 +48,8 @@
 - DVC remote не налаштовано (локальний кеш). Для іншої машини — налаштувати remote або завантажити дані заново.
 - ONNX (ЛР5): кастомні трансформери (OOF-WoE, ReviewTextSVD, конструктори) не мають конвертерів skl2onnx — граф ONNX
   ймовірно покриє лише частину конвеєра, решта — препроцесинг поза ONNX (ТЗ ЛР5 це допускає: «межу ONNX-графа задокументовано»).
+
+## ЛР4A → ЛР5 (трековий модуль «Weak & Active Learning»)
+- Міра uncertainty — ентропія; стратегія черги — entropy + diversity (`reports/lab4a_strategy.json`).
+- Пул дорозмітки — `data/processed/lab4a_split.csv` (role == pool), не перетинається з test ЛР4A і holdout ЛР3.
+- Self-Training на цих даних не допоміг (негативний результат, задокументовано); AL дає +0.025 ROC-AUC до random.

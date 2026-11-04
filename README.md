@@ -14,8 +14,8 @@
 |---|---|---|---|---|
 | 1 | Системний дизайн за CRISP-ML(Q) та динамічний препроцесинг-конфігуратор | `lab1` / `lab1-v1.0` | [docs/lab1_report.md](docs/lab1_report.md) | ✅ |
 | 2 | Мультимодальна інженерія та відбір ознак | `lab2` / `lab2-v1.0` | [docs/lab2_report.md](docs/lab2_report.md) | ✅ |
-| 3 | Герметизація пайплайну: ліквідація витоку, аномалії, дисбаланс, Nested CV | `lab3` | [docs/lab3_report.md](docs/lab3_report.md) | 🔄 |
-| 4 | Трек Модуля 4 (на вибір) | `lab4` | — | ⏳ |
+| 3 | Герметизація пайплайну: ліквідація витоку, аномалії, дисбаланс, Nested CV | `lab3` / `lab3-v1.0` | [docs/lab3_report.md](docs/lab3_report.md) | ✅ |
+| 4 | Трек 4A: semi-supervised і active learning | `lab4` | [docs/lab4_report.md](docs/lab4_report.md) | 🔄 |
 | 5 | Реліз PoC-системи | `lab5` | — | ⏳ |
 
 Кожна лабораторна робота виконується в окремій гілці. Звіт кожної ЛР — окремий файл у `docs/`.
@@ -39,6 +39,9 @@
 | Матриця бізнес-втрат, три підходи, графік «втрати vs поріг», оновлений ML Canvas | 3 | [config/costs.yaml](config/costs.yaml), [звіт §5](docs/lab3_report.md) |
 | DPR/EOR з трьома порівняннями, вплив SMOTE на захищену ознаку | 3 | [notebooks/lab3_fairness.ipynb](notebooks/lab3_fairness.ipynb), [звіт §7](docs/lab3_report.md) |
 | REFORMS, модулі 5 і 6 | 3 | [звіт §8](docs/lab3_report.md) |
+| Частково розмічений набір (pool / test під DVC) | 4A | [src/semi_supervised.py](src/semi_supervised.py), [dvc.yaml](dvc.yaml) (`lab4a_split`), [звіт §1](docs/lab4_report.md) |
+| Self-Training, Label Spreading vs лише розмічені; якість псевдоміток | 4A | [notebooks/lab4a_semi_supervised.ipynb](notebooks/lab4a_semi_supervised.ipynb), [звіт §2–3](docs/lab4_report.md) |
+| Active learning (стратегії запитів, оракул, random), міра невизначеності для ЛР5 | 4A | [звіт §4–5](docs/lab4_report.md), `reports/lab4a_strategy.json` |
 
 ## Структура репозиторію
 
@@ -52,15 +55,17 @@ ML_Labs/
 │   ├── multimodal.yaml                         # ЛР2: корпус Amazon, прив'язка, екстракція, DFS
 │   ├── selection.yaml                          # ЛР2: параметри відбору ознак
 │   ├── hermetic.yaml                           # ЛР3: розбиття, SMOTE, відбір у фолдах, вкладена CV, простір Optuna
-│   └── costs.yaml                              # ЛР3: матриця бізнес-втрат і class_weight
+│   ├── costs.yaml                              # ЛР3: матриця бізнес-втрат і class_weight
+│   └── lab4a.yaml                              # ЛР4A: частки міток, Self-Training, Label Spreading, active learning
 ├── data/                                       # під DVC (не в git): raw/*.dvc — покажчики; processed/ — виходи стадії prepare
-├── dvc.yaml, dvc.lock                          # ЛР3: стадія prepare і хеші її входів/виходів
+├── dvc.yaml, dvc.lock                          # стадії prepare (ЛР3) і lab4a_split (ЛР4A), хеші входів/виходів
 ├── docs/                                       # звіти лабораторних
 ├── notebooks/
 │   ├── 00_eda.ipynb, 01_quality_gate.ipynb     # ЛР1
 │   ├── 02_multimodal_leakage.ipynb             # ЛР2
 │   ├── lab3_robust_validation.ipynb            # ЛР3: DVC, герметизація, вкладена CV, cost-sensitive, McNemar
-│   └── lab3_fairness.ipynb                     # ЛР3: довірчі DPR/EOR, вплив SMOTE
+│   ├── lab3_fairness.ipynb                     # ЛР3: довірчі DPR/EOR, вплив SMOTE
+│   └── lab4a_semi_supervised.ipynb             # ЛР4A: semi-supervised, псевдомітки, active learning
 ├── reports/                                    # графіки й таблиці результатів
 ├── src/
 │   ├── dynamic_pipeline_builder.py             # ЛР1: validate_config, AdaptiveImputer, DynamicPipelineBuilder
@@ -73,9 +78,12 @@ ML_Labs/
 │   ├── evaluation.py                           # евристика, DPR/EOR; ЛР3: герметичний конвеєр, Nested CV, Optuna, втрати, McNemar
 │   ├── prepare_data.py                         # ЛР3: стадія DVC prepare, генерація герметичних конфігурацій
 │   ├── preprocessor.py                         # ЛР3: точка входу препроцесора (реекспорт класів ЛР1–2)
-│   └── legacy_lab2.py                          # ЛР3: відтворення прогнозів Експ. 4 ЛР2 для McNemar
+│   ├── legacy_lab2.py                          # ЛР3: відтворення прогнозів Експ. 4 ЛР2 для McNemar
+│   ├── run_nested.py                           # ЛР3: вкладена CV і фінальна модель (CLI)
+│   ├── semi_supervised.py                      # ЛР4A: Self-Training, Label Spreading, стратегії запитів, AL
+│   └── run_lab4a.py                            # ЛР4A: CLI (--split / --ssl / --al)
 ├── models/                                     # не в git: фінальний конвеєр ЛР3 (joblib)
-├── tests/                                      # pytest: test_lab1.py, test_lab2.py, test_lab3.py
+├── tests/                                      # pytest: test_lab1.py … test_lab4.py
 ├── run_verification.py                         # протокол верифікації (з ТЗ ЛР1) — на всіх конфігураціях
 ├── PLAN.md
 └── requirements.txt
@@ -105,4 +113,5 @@ dvc repro                           # (пере)будувати data/processed/
 python run_verification.py          # протокол верифікації: усі конфігурації ЛР1–ЛР3
 python -m pytest -q                 # автотести
 jupyter nbconvert --to notebook --execute --inplace notebooks/lab3_robust_validation.ipynb notebooks/lab3_fairness.ipynb
+python -m src.run_lab4a --ssl; python -m src.run_lab4a --al     # ЛР4A (≈ 6 + 6 хв), потім notebooks/lab4a_semi_supervised.ipynb
 ```

@@ -58,3 +58,28 @@ stages:
       hash: md5
       md5: df967ac5608cff85b3db0bb7a1722284
       size: 8127919
+  lab4a_split:
+    cmd: python -m src.run_lab4a --split
+    deps:
+    - path: data/processed/train.csv
+      hash: md5
+      md5: df967ac5608cff85b3db0bb7a1722284
+      size: 8127919
+    - path: src/run_lab4a.py
+      hash: md5
+      md5: 6e73a79117f5e396a92e5822357ce8fd
+      size: 3063
+    - path: src/semi_supervised.py
+      hash: md5
+      md5: ed28235b6aa10b05e5b9c8b93f1537a4
+      size: 18832
+    params:
+      config/lab4a.yaml:
+        split:
+          test_share: 0.25
+          seed: 42
+    outs:
+    - path: data/processed/lab4a_split.csv
+      hash: md5
+      md5: 37778b453b4c89d67b4259d350b4891b
+      size: 48725

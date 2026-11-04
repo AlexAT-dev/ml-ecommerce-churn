@@ -18,3 +18,14 @@ stages:
       - data/processed/holdout.csv
       - data/processed/reviews_linked.csv
       - data/processed/dfs_columns.json
+  lab4a_split:
+    cmd: python -m src.run_lab4a --split
+    deps:
+      - data/processed/train.csv
+      - src/semi_supervised.py
+      - src/run_lab4a.py
+    params:
+      - config/lab4a.yaml:
+          - split
+    outs:
+      - data/processed/lab4a_split.csv

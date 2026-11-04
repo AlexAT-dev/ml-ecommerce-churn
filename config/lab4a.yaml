@@ -1,0 +1,43 @@
+# ЛР4, трек 4A — semi-supervised + active learning.
+data:
+  rev: lab3-v1.0                # еталонний DVC-знімок ЛР3 (git-тег); читання лише через dvc.api
+  path: data/processed/train.csv
+  # holdout ЛР3 (data/processed/holdout.csv) тут НЕ використовується — він лишається test-набором ЛР5.
+
+split:                          # стадія DVC lab4a_split → data/processed/lab4a_split.csv
+  test_share: 0.25              # «test» ЛР4A: оцінювання всіх моделей, мітки ніколи не використовуються в навчанні
+  seed: 42                      # решта — «pool»: з нього беруться розмічені L і нерозмічені U (мітки = «оракул»)
+
+features:
+  config: config/generated/config_rf_hermetic.yaml   # препроцесор ЛР1–3 для RF (родина partitioning)
+  config_graph: config/generated/config_lr_hermetic.yaml  # для графового методу потрібні шкальовані ознаки (additive)
+  filter_k: 30                  # SelectKBest(f_classif) — навчається ЛИШЕ на розмічених рядках
+
+model:                          # класифікатор — як фінальна модель ЛР3 (reports/lab3_final_model.json)
+  n_estimators: 281
+  max_depth: 11
+  class_weight: {0: 50, 1: 118}
+  random_state: 42
+  threshold: 0.46               # бізнес-поріг ЛР3 — для F1 і сумарних втрат
+
+semi_supervised:
+  label_fractions: [0.05, 0.10, 0.20, 0.50]   # частка розмічених у pool
+  seeds: [0, 1, 2, 3, 4]                     # повтори випадкового вибору L → mean ± std
+  self_training:                             # основний метод (ТЗ 4A, варіант 1)
+    threshold: 0.90                          # задано ДО експериментів; чутливість — окремо, на одній частці
+    max_iter: 10
+    sensitivity_thresholds: [0.70, 0.80, 0.90, 0.95]
+    sensitivity_fraction: 0.10
+  label_spreading:                           # порівняння (ТЗ 4A, варіант 3, graph-based)
+    kernel: knn
+    n_neighbors: 20               # найменше k, за якого kNN-граф pool зв'язний (перевірка без міток); при 10 — 2% вузлів без міток
+    alpha: 0.2
+    max_iter: 100
+
+active_learning:                             # «Human semi-supervised» (варіант 5) з симульованим оракулом → міст до ЛР5
+  initial_fraction: 0.05
+  batch_size: 20
+  rounds: 15                                 # бюджет 300 нових міток
+  seeds: [0, 1, 2, 3, 4]
+  strategies: [random, entropy, entropy_diversity]
+  diversity_candidates: 100                  # entropy_diversity: топ-100 невизначених → KMeans(batch) → найближчі до центрів

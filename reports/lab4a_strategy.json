@@ -1,0 +1,15 @@
+{
+ "uncertainty_measure": "entropy",
+ "uncertainty_formula": "H(p) = -(p*log2(p) + (1-p)*log2(1-p)), p = P(churn | x); 0 — певний, 1 — максимально невизначений (p = 0.5)",
+ "note": "для двох класів least confidence, margin і entropy дають однакову чергу; ентропію обрано як стандартну міру ЛР5",
+ "query_strategy_recommended": "entropy_diversity",
+ "query_strategy_results_auc_at_budget": {
+  "entropy": 0.8551,
+  "entropy_diversity": 0.8582,
+  "random": 0.8332
+ },
+ "batch_size": 20,
+ "pool_definition": "data/processed/lab4a_split.csv, role == 'pool' (DVC stage lab4a_split) — не перетинається з test ЛР4A і з holdout ЛР3",
+ "oracle": "приховані мітки Churn з train.csv @ lab3-v1.0 (симуляція експерта)",
+ "random_baseline": "та сама кількість запитів, випадковий відбір"
+}
