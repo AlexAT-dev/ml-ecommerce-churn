@@ -1,0 +1,22 @@
+# ЛР2, Крок 5 — відбір ознак. Порядок — за обчислювальною вартістю: Filter звужує простір для Wrapper.
+basic_stats:
+  high_corr_threshold: 0.90     # пари ознак з |r| вище — кандидати на мультиколінеарність
+  vif_threshold: 10.0           # VIF > 10 — сильна мультиколінеарність
+  vif_top_n: 30                 # VIF рахується для top-N ознак за Filter-оцінкою (повний VIF на 150+ ознаках нестабільний)
+filter:
+  score_func: mutual_info       # mutual_info | f_classif
+  k: 30
+  random_state: 42
+hybrid:                         # Filter → mlxtend SequentialFeatureSelector
+  k_features: 15
+  forward: true
+  floating: false
+  scoring: roc_auc
+  cv: 3
+embedded:
+  C: 0.05                       # сила L1-регуляризації (менше C → більше нулів)
+tree:
+  n_estimators: 200
+  n_repeats: 5
+  validation_share: 0.25        # permutation importance рахується на відкладеній частині train
+  random_state: 42

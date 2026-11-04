@@ -1,0 +1,92 @@
+# Конфігурація препроцесингу — ЛР2, Експеримент 2 (Manual FE).
+# = config_lr.yaml (ЛР1) + секція feature_engineering + нові групи ознак.
+# config_lr_fe.yaml і config_rf_fe.yaml відрізняються ЄДИНИМ рядком: model_family.
+model_family: additive          # additive | partitioning  (п. 3.4.4 ЛР1)
+
+# --- ЛР2, Крок 1: конструктори ознак (безстанові; виконуються до ColumnTransformer) ---
+feature_engineering:
+  # А. Часові: етап життєвого циклу клієнта (межі — експертні, у місяцях стажу)
+  - {type: bins,  name: TenureStage, source: Tenure, edges: [0, 1, 5, 12, 120]}   # 0 новий | 1 ранній | 2 постійний | 3 лояльний
+  # А/Б. «Свіжість»: днів від останнього замовлення відносно стажу в днях (+1 день — захист від 0)
+  - {type: ratio, name: RecencyRatio, numerator: DaySinceLastOrder, denominator: Tenure, denominator_scale: 30, epsilon: 1.0}
+  # Б. Взаємодії-відношення (ε = 1e-5 — захист від ділення на 0, REFORMS 4b)
+  - {type: ratio, name: CashbackPerOrder, numerator: CashbackAmount, denominator: OrderCount}
+  - {type: ratio, name: CouponPerOrder,   numerator: CouponUsed,     denominator: OrderCount}
+  - {type: ratio, name: OrdersPerTenureMonth, numerator: OrderCount, denominator: Tenure, epsilon: 1.0}  # +1 міс.: новий клієнт (Tenure=0)
+  # В. Схрещення категорій → поведінковий сегмент високої кардинальності (до 6·3·5·2 = 180 значень)
+  - {type: cross, name: Segment, sources: [PreferedOrderCat, MaritalStatus, SatisfactionScore, PreferredLoginDevice]}
+
+features:
+  numeric_continuous:
+    - Tenure
+    - WarehouseToHome
+    - HourSpendOnApp
+    - NumberOfDeviceRegistered
+    - NumberOfAddress
+    - OrderAmountHikeFromlastYear
+    - CouponUsed
+    - OrderCount
+    - DaySinceLastOrder
+    - CashbackAmount
+  numeric_binary:
+    - Complain
+  categorical_nominal:
+    - PreferredLoginDevice
+    - PreferredPaymentMode
+    - PreferedOrderCat
+    - MaritalStatus
+  categorical_ordinal:
+    - SatisfactionScore
+  # --- ЛР2 ---
+  engineered_ratio:             # Крок 1, категорія Б
+    - RecencyRatio
+    - CashbackPerOrder
+    - CouponPerOrder
+    - OrdersPerTenureMonth
+  engineered_stage:             # Крок 1, категорія А (порядковий код етапу)
+    - TenureStage
+  high_cardinality:             # Крок 1, категорія В
+    - Segment
+
+protected_attributes: [CityTier, Gender]  # CityTier — основна (метрики справедливості), Gender — архітектурно виключена; не передаються до ColumnTransformer
+
+feature_kinds:
+  numeric_continuous: numeric
+  numeric_binary: numeric
+  categorical_nominal: categorical
+  categorical_ordinal: categorical
+  engineered_ratio: numeric
+  engineered_stage: numeric
+  high_cardinality: categorical
+
+value_aliases:
+  PreferredLoginDevice: {Phone: Mobile Phone}
+  PreferredPaymentMode: {CC: Credit Card, COD: Cash on Delivery}
+  PreferedOrderCat: {Mobile: Mobile Phone}
+
+imputation_policy:
+  numeric:
+    - {max_share: 0.10, strategy: median}
+    - {max_share: 0.40, strategy: median,   add_indicator: true}
+    - {max_share: 1.00, strategy: constant, fill_value: 0, add_indicator: true}
+  categorical:
+    - {max_share: 0.10, strategy: most_frequent}
+    - {max_share: 1.00, strategy: constant, fill_value: "Missing"}
+
+transform_policy:
+  additive:
+    numeric_continuous:  [log1p, standard_scaler]
+    numeric_binary:      [standard_scaler]
+    categorical_nominal: [oof_woe]          # ЛР2: WoE → out-of-fold WoE
+    categorical_ordinal: [ordinal_encoder, standard_scaler]
+    engineered_ratio:    [yeo_johnson]      # стабілізація дисперсії + стандартизація
+    engineered_stage:    [standard_scaler]
+    high_cardinality:    [oof_woe]
+  partitioning:
+    numeric_continuous:  [{winsorize: {lower: 0.01, upper: 0.99}}]
+    numeric_binary:      []
+    categorical_nominal: [one_hot]
+    categorical_ordinal: [ordinal_encoder]
+    engineered_ratio:    [{winsorize: {lower: 0.01, upper: 0.99}}]
+    engineered_stage:    []
+    high_cardinality:    [oof_woe]          # 180 значень: one-hot роздув би простір; WoE для дерев — усталений прийом

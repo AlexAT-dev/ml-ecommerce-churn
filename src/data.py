@@ -59,10 +59,24 @@ def inject_mcar(df: pd.DataFrame, columns: Dict[str, float], seed: int) -> pd.Da
     return out
 
 
-def load_dataset(data_config: dict | None = None, inject: bool = True) -> pd.DataFrame:
-    """Датасет, з яким працює конвеєр: сирі дані + інжектовані за config/data.yaml пропуски."""
+def drop_exact_duplicates(df: pd.DataFrame, id_column: str | None) -> pd.DataFrame:
+    """Прибирає рядки, що повністю повторюють інший (без урахування ідентифікатора).
+
+    Детерміноване очищення (залишається перше входження), без жодних статистик по даних.
+    """
+    subset = [c for c in df.columns if c != id_column]
+    return df.loc[~df.duplicated(subset=subset, keep="first")].reset_index(drop=True)
+
+
+def load_dataset(data_config: dict | None = None, inject: bool = True,
+                 deduplicate: bool | None = None) -> pd.DataFrame:
+    """Датасет, з яким працює конвеєр: сирі дані → [дедуплікація] → інжектовані пропуски."""
     data_config = data_config or load_data_config()
     df = load_raw(data_config)
+    if deduplicate is None:
+        deduplicate = bool(data_config.get("deduplicate", False))
+    if deduplicate:
+        df = drop_exact_duplicates(df, data_config.get("id_column"))
     spec = data_config.get("missing_injection") or {}
     if inject and spec.get("columns"):
         df = inject_mcar(df, spec["columns"], seed=int(spec["seed"]))

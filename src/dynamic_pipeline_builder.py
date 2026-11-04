@@ -22,7 +22,8 @@ from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
 from sklearn.utils.validation import check_is_fitted
 
-from src.transformers import TRANSFORMER_REGISTRY, ValueAliasMapper, _as_frame
+from src.transformers import TRANSFORMER_REGISTRY, ValueAliasMapper
+from src.utils import _as_frame
 
 REQUIRED_SECTIONS = (
     "model_family",

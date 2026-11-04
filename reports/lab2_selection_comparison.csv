@@ -1,0 +1,35 @@
+,"Filter (MI, top-15)",Hybrid (SFS),"Embedded (L1, top-15 |coef|)","Tree (permutation, top-15)",votes
+WarehouseToHome / Tenure,1,1,1,1,4
+OrdersPerTenureMonth,1,1,1,1,4
+Tenure,1,0,1,1,3
+Tenure / OrderCount,1,1,0,1,3
+Segment,0,1,1,1,3
+Tenure / WarehouseToHome,1,1,0,1,3
+Tenure / OrderAmountHikeFromlastYear,1,0,0,1,2
+CashbackAmount,0,1,0,1,2
+NumberOfAddress,0,0,1,1,2
+Complain,0,0,1,1,2
+Tenure / CouponUsed,0,1,1,0,2
+Tenure / CashbackAmount,1,1,0,0,2
+Tenure / DaySinceLastOrder,0,1,0,1,2
+OrderAmountHikeFromlastYear / Tenure,1,0,0,1,2
+NumberOfDeviceRegistered,0,0,1,1,2
+OrderCount / Tenure,1,1,0,0,2
+TenureStage,1,0,0,1,2
+Tenure / HourSpendOnApp,1,0,0,1,2
+CashbackAmount / WarehouseToHome,0,1,0,0,1
+OrderAmountHikeFromlastYear / WarehouseToHome,0,0,1,0,1
+PreferredPaymentMode,0,0,1,0,1
+DaySinceLastOrder / OrderCount,0,0,1,0,1
+DaySinceLastOrder / Tenure,0,1,0,0,1
+HourSpendOnApp / Tenure,1,0,0,0,1
+MaritalStatus,0,0,1,0,1
+NATURAL_LOGARITHM(CashbackAmount),0,1,0,0,1
+CouponUsed / Tenure,1,0,0,0,1
+DaySinceLastOrder / CashbackAmount,0,1,0,0,1
+NATURAL_LOGARITHM(Tenure),1,0,0,0,1
+SatisfactionScore,0,0,1,0,1
+RecencyRatio__missing,0,0,1,0,1
+RecencyRatio,1,0,0,0,1
+WarehouseToHome / CashbackAmount,0,1,0,0,1
+WarehouseToHome / Tenure__missing,0,0,1,0,1

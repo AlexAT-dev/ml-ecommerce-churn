@@ -14,24 +14,28 @@
 | Евристика | `Tenure <= 1 OR Complain == 1` → Acc 0.699 / Rec 0.848 / Prec 0.341 | ✅ |
 | ML Metric | Recall ≥ 0.80 при Precision ≥ 0.50; ROC-AUC ≥ 0.85 | ✅ |
 | Трек ЛР4 | 4A / 4B / 4C | не обрано |
-| Python | 3.11.9 у `.venv`, kernel `ml-labs` | ✅ |
+| Python | 3.11.9 у `.venv`, kernel `ml-labs`; pandas 2.3.3 (ЛР2: featuretools не працює з pandas 3) | ✅ |
 
 ## Git
 
 - Кожна ЛР — окрема гілка (`lab1` … `lab5`).
 - ЛР1: тег `lab1-v1.0` (згадано в README, REFORMS 2b).
+- ЛР2: тег `lab2-v1.0`.
+- Звіти: `docs/labN_report.md`; README — «обкладинка» з таблицею «артефакт → файл».
 
 ## Прогрес
 
-- [x] ЛР1 — код, конфіги, ноутбуки, README готові; чекає коміту/тегу і захисту
-- [ ] ЛР2
+- [x] ЛР1 — здано (тег lab1-v1.0)
+- [x] ЛР2 — готово, чекає коміту/тегу і захисту (`docs/lab2_report.md`, `notebooks/02_multimodal_leakage.ipynb`)
 - [ ] ЛР3
 - [ ] ЛР4 (трек: ?)
 - [ ] ЛР5
 
 ## Нотатки для наступних ЛР
 
-- 556 повних дублікатів (без CustomerID) → при розбитті train/test ризик витоку; вирішити в ЛР2 (дедуплікація або групове розбиття).
-- WoEEncoder без внутрішньої CV — у ЛР3 має вчитися всередині фолдів.
-- pandas 3.1 / numpy 2.4 / sklearn 1.9 — свіжі; featuretools / imblearn можуть вимагати даунгрейду.
+- ✅ ЛР2: дублікати прибрано (`config/data.yaml: deduplicate`), 5 074 рядки; OOF-WoE реалізовано.
+- ЛР3: прибрати витік Експ. 4 (TF-IDF/SVD, WoE, Filter/SFS — лише у внутрішніх фолдах, imblearn pipeline, Nested CV); чесний поріг; довірчий DPR/EOR;
+  перевірити проксі `PreferredPaymentMode` і кешбек-ознаки; вирішити долю мультимодального блоку (неінформативний).
+- ЛР3: природні пропуски залежать від класу (Tenure 4% vs 8.7%) — MAR/MNAR, індикатори можуть бути корисні.
+- Мультимодальний корпус і фото — кеш у `data/raw/amazon` (37 МБ), прив'язка — `data/processed/reviews_linked.csv`.
 - Особисті чеклісти до захисту — `notes/` (не в git).
