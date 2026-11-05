@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import json
 import os
+import sys
 from pathlib import Path
 
 import matplotlib.pyplot as plt
@@ -18,7 +19,9 @@ import requests
 import streamlit as st
 
 ROOT = Path(__file__).resolve().parents[2]
-API = os.environ.get("API_URL", "http://localhost:8000")
+if str(ROOT) not in sys.path:          # streamlit run додає в sys.path лише src/dashboard, а не корінь проєкту
+    sys.path.insert(0, str(ROOT))
+API =os.environ.get("API_URL", "http://localhost:8000")
 REPORTS = ROOT / "reports"
 
 st.set_page_config(page_title="ChurnGuard", page_icon="📉", layout="wide")
