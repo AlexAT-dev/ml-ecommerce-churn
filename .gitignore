@@ -26,11 +26,14 @@ notes/
 mlruns/
 mlartifacts/
 mlflow.db
-*.onnx
-*.skops
+feedback.db
 *.pkl
 *.joblib
 catboost_info/
+# ЛР5: у git — лише фінальні артефакти @champion (models/pipeline.onnx, *.skops, фон, meta, ood/);
+# проміжні моделі раунду дорозмітки — в MLflow (@challenger), не в git
+models/challenger/
+models/random_baseline/
 
 # --- Kaggle-токен ---
 kaggle.json

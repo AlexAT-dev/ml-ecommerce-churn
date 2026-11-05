@@ -22,6 +22,7 @@
 - ЛР1: тег `lab1-v1.0` (згадано в README, REFORMS 2b).
 - ЛР2: тег `lab2-v1.0`.
 - ЛР3: тег `lab3-v1.0` — еталонний DVC-знімок для ЛР4 (`dvc.api.open('data/processed/train.csv', rev='lab3-v1.0')`).
+- ЛР4: тег `lab4-v1.0`; ЛР5: тег `lab5-v1.0`.
 - Звіти: `docs/labN_report.md`; README — «обкладинка» з таблицею «артефакт → файл».
 
 ## Прогрес
@@ -29,8 +30,8 @@
 - [x] ЛР1 — здано (тег lab1-v1.0)
 - [x] ЛР2 — здано (тег lab2-v1.0)
 - [x] ЛР3 — здано (тег lab3-v1.0)
-- [x] ЛР4 (трек 4A) — готово, чекає коміту/тегу `lab4-v1.0` і захисту
-- [ ] ЛР5
+- [x] ЛР4 (трек 4A) — здано (тег lab4-v1.0)
+- [x] ЛР5 — готово, чекає коміту/тегу `lab5-v1.0` і захисту
 
 ## Нотатки для наступних ЛР
 
@@ -53,3 +54,15 @@
 - Міра uncertainty — ентропія; стратегія черги — entropy + diversity (`reports/lab4a_strategy.json`).
 - Пул дорозмітки — `data/processed/lab4a_split.csv` (role == pool), не перетинається з test ЛР4A і holdout ЛР3.
 - Self-Training на цих даних не допоміг (негативний результат, задокументовано); AL дає +0.025 ROC-AUC до random.
+
+## ЛР5 — рішення (не прямо з ТЗ)
+- Стартового шаблону від викладача немає → структура за розділом 11 ТЗ; `src/serving/` — препроцесинг поза ONNX (замість `src/features/`,
+  бо `src/features.py` уже існує з ЛР2).
+- Train v1 = pool ЛР4A (3 044), пул дорозмітки = test ЛР4A (1 015), test ЛР5 = holdout ЛР3 (1 015) — без перетинів.
+- Ознаки відгуків ЛР2 у сервісі не використовуються (у CRM на момент запиту їх немає) → 15 табличних ознак, гіперпараметри ЛР3.
+- У ONNX лише RandomForest; препроцесор — `models/preprocessor.skops` (кастомні трансформери без конвертерів skl2onnx).
+- OOD: PCA за правилом ТЗ (≥ 0.9 дисперсії, ≤ 10 компонент) → KDE, поріг — 1-й перцентиль на відкладених 20% train.
+- Фінальні артефакти `models/` комітяться (≈ 24 МБ), `mlflow.db`, `mlruns/`, `feedback.db`, `models/challenger|random_baseline` — ні.
+- Ліміт пакета 256 (як у ТЗ і для заміру p50/p95).
+- Docker Compose: окремий MLflow-сервер, реєстр наповнює `deploy/seed_registry.py` з `models/` (номер версії там 1).
+- Слайди — PowerPoint (`docs/slides/ChurnGuard_defense.pptx`) + PDF (`reports/defense.pdf`).

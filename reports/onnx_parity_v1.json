@@ -1,0 +1,20 @@
+{
+ "tag": "v1",
+ "n_test": 1015,
+ "max_abs_diff": 2.1880797010376263e-07,
+ "atol": 0.0001,
+ "label_flips_at_threshold": 0,
+ "flips": [],
+ "model_version": "2",
+ "run_id": "ed310e5fcd524d249510833a3211ab2b",
+ "registered_as": [
+  {
+   "model_version": "1",
+   "run_id": "0e83405cc13b43a982aec9cb94650b3f"
+  },
+  {
+   "model_version": "2",
+   "run_id": "ed310e5fcd524d249510833a3211ab2b"
+  }
+ ]
+}

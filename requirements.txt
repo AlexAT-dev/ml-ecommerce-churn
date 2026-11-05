@@ -24,3 +24,17 @@ requests==2.34.2
 dvc==3.67.1
 imbalanced-learn==0.14.2
 optuna==5.0.0
+# --- ЛР5 (сервінг; ядро для чистого середовища — deploy/requirements.txt) ---
+skl2onnx==1.20.0
+onnx==1.23.2
+onnxruntime==1.31.1
+skops==0.16.0
+mlflow==3.18.0
+fastapi==0.162.0
+uvicorn==0.54.0
+pydantic==2.14.2
+httpx==0.28.1
+shap==0.51.0
+lime==0.2.0.1
+PyALE==1.2.0
+streamlit==1.66.1

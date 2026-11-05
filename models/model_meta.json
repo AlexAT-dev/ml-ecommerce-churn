@@ -1,0 +1,139 @@
+{
+ "model_name": "ChurnGuard",
+ "tag": "v2",
+ "request_fields": [
+  "Tenure",
+  "PreferredLoginDevice",
+  "WarehouseToHome",
+  "PreferredPaymentMode",
+  "HourSpendOnApp",
+  "NumberOfDeviceRegistered",
+  "PreferedOrderCat",
+  "SatisfactionScore",
+  "MaritalStatus",
+  "NumberOfAddress",
+  "Complain",
+  "OrderAmountHikeFromlastYear",
+  "CouponUsed",
+  "OrderCount",
+  "DaySinceLastOrder",
+  "CashbackAmount"
+ ],
+ "features": [
+  "Tenure",
+  "Complain",
+  "MaritalStatus_Single",
+  "OrdersPerTenureMonth",
+  "TenureStage",
+  "Segment",
+  "Tenure / OrderCount",
+  "Tenure / DaySinceLastOrder",
+  "DaySinceLastOrder / Tenure",
+  "HourSpendOnApp / Tenure",
+  "WarehouseToHome / Tenure",
+  "NATURAL_LOGARITHM(Tenure)",
+  "CashbackAmount / Tenure__missing",
+  "DaySinceLastOrder / Tenure__missing",
+  "WarehouseToHome / Tenure__missing"
+ ],
+ "dtypes": {
+  "Tenure": "float32",
+  "Complain": "float32",
+  "MaritalStatus_Single": "float32",
+  "OrdersPerTenureMonth": "float32",
+  "TenureStage": "float32",
+  "Segment": "float32",
+  "Tenure / OrderCount": "float32",
+  "Tenure / DaySinceLastOrder": "float32",
+  "DaySinceLastOrder / Tenure": "float32",
+  "HourSpendOnApp / Tenure": "float32",
+  "WarehouseToHome / Tenure": "float32",
+  "NATURAL_LOGARITHM(Tenure)": "float32",
+  "CashbackAmount / Tenure__missing": "float32",
+  "DaySinceLastOrder / Tenure__missing": "float32",
+  "WarehouseToHome / Tenure__missing": "float32"
+ },
+ "onnx_inputs": [
+  {
+   "name": "float_input",
+   "shape": [
+    null,
+    15
+   ],
+   "type": "tensor(float)"
+  }
+ ],
+ "onnx_outputs": [
+  "label",
+  "probabilities"
+ ],
+ "classes": [
+  0,
+  1
+ ],
+ "positive_class": 1,
+ "class_meaning": {
+  "0": "залишиться",
+  "1": "піде (відтік)"
+ },
+ "threshold": 0.46,
+ "threshold_source": "ЛР3: OOF-прогнози вкладеної CV, матриця втрат config/costs.yaml",
+ "model_family": "tree_ensemble",
+ "opset": 17,
+ "preprocessing_version": "lab5-serving-1",
+ "preprocessing": "поза ONNX: models/preprocessor.skops (src/serving + DynamicPipelineBuilder ЛР1–3)",
+ "uncertainty": {
+  "measure": "entropy",
+  "formula": "H(p) = -(p*log2 p + (1-p)*log2(1-p)), p = P(відтік)",
+  "source": "ЛР4A, reports/lab4a_strategy.json"
+ },
+ "protected_attributes": [
+  "CityTier",
+  "Gender"
+ ],
+ "non_ml_rule": "Tenure <= 1 OR Complain == 1 → відтік (ЛР1)",
+ "hyperparameters": {
+  "n_estimators": 281,
+  "max_depth": 11,
+  "k_neighbors": 5
+ },
+ "class_weight": {
+  "0": 50.0,
+  "1": 118.0
+ },
+ "train_rows": 3044,
+ "library_versions": {
+  "python": "3.11.9",
+  "scikit-learn": "1.9.1",
+  "imbalanced-learn": "0.14.2",
+  "numpy": "2.4.6",
+  "pandas": "2.3.3",
+  "onnx": "1.23.2",
+  "onnxruntime": "1.31.1",
+  "skl2onnx": "1.20.0",
+  "skops": "0.16.0",
+  "mlflow": "3.18.0",
+  "fastapi": "0.162.0",
+  "pydantic": "2.14.2",
+  "shap": "0.51.0",
+  "lime": "0.2.0.1"
+ },
+ "data": {
+  "train": "data/processed/train.csv @ lab3-v1.0, role=pool (lab4a_split.csv)",
+  "label_pool": "data/processed/train.csv @ lab3-v1.0, role=test (lab4a_split.csv)",
+  "test": "data/processed/holdout.csv @ lab3-v1.0"
+ },
+ "onnx_sha256": "e80255357a5baf61219dfe3c39a4092f0ffa2624e7a25d91435c600bec8cd483",
+ "ood": {
+  "method": "StandardScaler → PCA(whiten) → KDE(gaussian)",
+  "space": "вхід ONNX (15 ознак)",
+  "n_components": 9,
+  "explained_variance": 0.9186933040618896,
+  "bandwidth": 0.23263050671536256,
+  "threshold": -36.21737542695042,
+  "threshold_rule": "1-й перцентиль log-густини на відкладених 20% train",
+  "fit_rows": 2435,
+  "calibration_rows": 609,
+  "fallback": "Tenure <= 1 OR Complain == 1 → відтік (ЛР1)"
+ }
+}

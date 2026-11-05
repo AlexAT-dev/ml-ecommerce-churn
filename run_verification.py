@@ -30,6 +30,8 @@ CONFIGS = (
     "config/generated/config_lr_leaky.yaml", "config/generated/config_rf_leaky.yaml",
     # ЛР3: герметичний конвеєр (безстанові DFS-ознаки + текстовий блок у фолдах)
     "config/generated/config_lr_hermetic.yaml", "config/generated/config_rf_hermetic.yaml",
+    # ЛР5: препроцесор сервісу (табличні + клієнтські DFS-ознаки, без відгуків; src/export/export_onnx.py)
+    "config/generated/config_rf_serving.yaml",
 )
 
 

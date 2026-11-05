@@ -1,0 +1,11 @@
+{
+ "tag": "random",
+ "n_test": 1015,
+ "max_abs_diff": 2.7097368526796117e-07,
+ "atol": 0.0001,
+ "label_flips_at_threshold": 0,
+ "flips": [],
+ "model_version": null,
+ "run_id": null,
+ "registered_as": []
+}

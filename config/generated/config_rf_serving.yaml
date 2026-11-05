@@ -1,0 +1,212 @@
+# ЗГЕНЕРОВАНО src/export/export_onnx.py — не редагувати вручну.
+# ЛР5 (сервіс): config_rf_fe.yaml + 64 клієнтські DFS-ознаки; без ознак з відгуків (недоступні в CRM на запиті).
+model_family: partitioning
+feature_engineering:
+- type: bins
+  name: TenureStage
+  source: Tenure
+  edges:
+  - 0
+  - 1
+  - 5
+  - 12
+  - 120
+- type: ratio
+  name: RecencyRatio
+  numerator: DaySinceLastOrder
+  denominator: Tenure
+  denominator_scale: 30
+  epsilon: 1.0
+- type: ratio
+  name: CashbackPerOrder
+  numerator: CashbackAmount
+  denominator: OrderCount
+- type: ratio
+  name: CouponPerOrder
+  numerator: CouponUsed
+  denominator: OrderCount
+- type: ratio
+  name: OrdersPerTenureMonth
+  numerator: OrderCount
+  denominator: Tenure
+  epsilon: 1.0
+- type: cross
+  name: Segment
+  sources:
+  - PreferedOrderCat
+  - MaritalStatus
+  - SatisfactionScore
+  - PreferredLoginDevice
+features:
+  numeric_continuous:
+  - Tenure
+  - WarehouseToHome
+  - HourSpendOnApp
+  - NumberOfDeviceRegistered
+  - NumberOfAddress
+  - OrderAmountHikeFromlastYear
+  - CouponUsed
+  - OrderCount
+  - DaySinceLastOrder
+  - CashbackAmount
+  numeric_binary:
+  - Complain
+  categorical_nominal:
+  - PreferredLoginDevice
+  - PreferredPaymentMode
+  - PreferedOrderCat
+  - MaritalStatus
+  categorical_ordinal:
+  - SatisfactionScore
+  engineered_ratio:
+  - RecencyRatio
+  - CashbackPerOrder
+  - CouponPerOrder
+  - OrdersPerTenureMonth
+  engineered_stage:
+  - TenureStage
+  high_cardinality:
+  - Segment
+  client_dfs:
+  - Tenure / OrderCount
+  - Tenure / CashbackAmount
+  - Tenure / CouponUsed
+  - Tenure / DaySinceLastOrder
+  - Tenure / HourSpendOnApp
+  - Tenure / WarehouseToHome
+  - Tenure / OrderAmountHikeFromlastYear
+  - OrderCount / Tenure
+  - OrderCount / CashbackAmount
+  - OrderCount / CouponUsed
+  - OrderCount / DaySinceLastOrder
+  - OrderCount / HourSpendOnApp
+  - OrderCount / WarehouseToHome
+  - OrderCount / OrderAmountHikeFromlastYear
+  - CashbackAmount / Tenure
+  - CashbackAmount / OrderCount
+  - CashbackAmount / CouponUsed
+  - CashbackAmount / DaySinceLastOrder
+  - CashbackAmount / HourSpendOnApp
+  - CashbackAmount / WarehouseToHome
+  - CashbackAmount / OrderAmountHikeFromlastYear
+  - CouponUsed / Tenure
+  - CouponUsed / OrderCount
+  - CouponUsed / CashbackAmount
+  - CouponUsed / DaySinceLastOrder
+  - CouponUsed / HourSpendOnApp
+  - CouponUsed / WarehouseToHome
+  - CouponUsed / OrderAmountHikeFromlastYear
+  - DaySinceLastOrder / Tenure
+  - DaySinceLastOrder / OrderCount
+  - DaySinceLastOrder / CashbackAmount
+  - DaySinceLastOrder / CouponUsed
+  - DaySinceLastOrder / HourSpendOnApp
+  - DaySinceLastOrder / WarehouseToHome
+  - DaySinceLastOrder / OrderAmountHikeFromlastYear
+  - HourSpendOnApp / Tenure
+  - HourSpendOnApp / OrderCount
+  - HourSpendOnApp / CashbackAmount
+  - HourSpendOnApp / CouponUsed
+  - HourSpendOnApp / DaySinceLastOrder
+  - HourSpendOnApp / WarehouseToHome
+  - HourSpendOnApp / OrderAmountHikeFromlastYear
+  - WarehouseToHome / Tenure
+  - WarehouseToHome / OrderCount
+  - WarehouseToHome / CashbackAmount
+  - WarehouseToHome / CouponUsed
+  - WarehouseToHome / DaySinceLastOrder
+  - WarehouseToHome / HourSpendOnApp
+  - WarehouseToHome / OrderAmountHikeFromlastYear
+  - OrderAmountHikeFromlastYear / Tenure
+  - OrderAmountHikeFromlastYear / OrderCount
+  - OrderAmountHikeFromlastYear / CashbackAmount
+  - OrderAmountHikeFromlastYear / CouponUsed
+  - OrderAmountHikeFromlastYear / DaySinceLastOrder
+  - OrderAmountHikeFromlastYear / HourSpendOnApp
+  - OrderAmountHikeFromlastYear / WarehouseToHome
+  - NATURAL_LOGARITHM(Tenure)
+  - NATURAL_LOGARITHM(OrderCount)
+  - NATURAL_LOGARITHM(CashbackAmount)
+  - NATURAL_LOGARITHM(CouponUsed)
+  - NATURAL_LOGARITHM(DaySinceLastOrder)
+  - NATURAL_LOGARITHM(HourSpendOnApp)
+  - NATURAL_LOGARITHM(WarehouseToHome)
+  - NATURAL_LOGARITHM(OrderAmountHikeFromlastYear)
+protected_attributes:
+- CityTier
+- Gender
+feature_kinds:
+  numeric_continuous: numeric
+  numeric_binary: numeric
+  categorical_nominal: categorical
+  categorical_ordinal: categorical
+  engineered_ratio: numeric
+  engineered_stage: numeric
+  high_cardinality: categorical
+  client_dfs: numeric
+value_aliases:
+  PreferredLoginDevice:
+    Phone: Mobile Phone
+  PreferredPaymentMode:
+    CC: Credit Card
+    COD: Cash on Delivery
+  PreferedOrderCat:
+    Mobile: Mobile Phone
+imputation_policy:
+  numeric:
+  - max_share: 0.1
+    strategy: median
+  - max_share: 0.4
+    strategy: median
+    add_indicator: true
+  - max_share: 1.0
+    strategy: constant
+    fill_value: 0
+    add_indicator: true
+  categorical:
+  - max_share: 0.1
+    strategy: most_frequent
+  - max_share: 1.0
+    strategy: constant
+    fill_value: Missing
+transform_policy:
+  additive:
+    numeric_continuous:
+    - log1p
+    - standard_scaler
+    numeric_binary:
+    - standard_scaler
+    categorical_nominal:
+    - oof_woe
+    categorical_ordinal:
+    - ordinal_encoder
+    - standard_scaler
+    engineered_ratio:
+    - yeo_johnson
+    engineered_stage:
+    - standard_scaler
+    high_cardinality:
+    - oof_woe
+    client_dfs:
+    - yeo_johnson
+  partitioning:
+    numeric_continuous:
+    - winsorize:
+        lower: 0.01
+        upper: 0.99
+    numeric_binary: []
+    categorical_nominal:
+    - one_hot
+    categorical_ordinal:
+    - ordinal_encoder
+    engineered_ratio:
+    - winsorize:
+        lower: 0.01
+        upper: 0.99
+    engineered_stage: []
+    high_cardinality:
+    - oof_woe
+    client_dfs:
+    - winsorize:
+        lower: 0.01
+        upper: 0.99

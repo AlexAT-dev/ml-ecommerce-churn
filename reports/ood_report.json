@@ -1,0 +1,63 @@
+{
+ "ood": {
+  "method": "StandardScaler → PCA(whiten) → KDE(gaussian)",
+  "space": "вхід ONNX (15 ознак)",
+  "n_components": 9,
+  "explained_variance": 0.9186933040618896,
+  "bandwidth": 0.23263050671536256,
+  "threshold": -36.21737542695042,
+  "threshold_rule": "1-й перцентиль log-густини на відкладених 20% train",
+  "fit_rows": 2435,
+  "calibration_rows": 609,
+  "fallback": "Tenure <= 1 OR Complain == 1 → відтік (ЛР1)"
+ },
+ "fallback_share_test": 0.0009852216748768472,
+ "n_fallback_test": 1,
+ "synthetic_ood_detected": {
+  "PC1 +3σ": 0.7596059113300493,
+  "PC1+PC2 +3σ": 0.8679802955665025
+ },
+ "model_all_test": {
+  "n": 1015,
+  "positives": 168,
+  "f1": 0.6585956416464891,
+  "cost_per_customer": 69.00689655172414,
+  "roc_auc": 0.9066909821779952
+ },
+ "model_without_fallback": {
+  "n": 1014,
+  "positives": 168,
+  "f1": 0.6601941747572816,
+  "cost_per_customer": 69.02564102564102,
+  "roc_auc": 0.9070028425081617
+ },
+ "system_model_plus_rule": {
+  "n": 1015,
+  "positives": 168,
+  "f1": 0.6585956416464891,
+  "cost_per_customer": 69.00689655172414
+ },
+ "ood_subset": {
+  "model": {
+   "n": 1,
+   "positives": 0,
+   "f1": 0.0,
+   "cost_per_customer": 50.0
+  },
+  "rule": {
+   "n": 1,
+   "positives": 0,
+   "f1": 0.0,
+   "cost_per_customer": 50.0
+  },
+  "note": "лише кілька об'єктів — порівняння описове"
+ },
+ "model_version": "2",
+ "run_id": "ed310e5fcd524d249510833a3211ab2b",
+ "registered_as": [
+  {
+   "model_version": "2",
+   "run_id": "ed310e5fcd524d249510833a3211ab2b"
+  }
+ ]
+}

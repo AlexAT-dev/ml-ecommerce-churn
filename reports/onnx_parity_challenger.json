@@ -1,0 +1,16 @@
+{
+ "tag": "challenger",
+ "n_test": 1015,
+ "max_abs_diff": 2.221661440371392e-07,
+ "atol": 0.0001,
+ "label_flips_at_threshold": 0,
+ "flips": [],
+ "model_version": "3",
+ "run_id": "20321913fd5d411cbb95dd43dbe8b660",
+ "registered_as": [
+  {
+   "model_version": "3",
+   "run_id": "20321913fd5d411cbb95dd43dbe8b660"
+  }
+ ]
+}

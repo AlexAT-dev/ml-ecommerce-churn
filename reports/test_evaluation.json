@@ -1,0 +1,198 @@
+{
+ "model_version": "2",
+ "run_id": "ed310e5fcd524d249510833a3211ab2b",
+ "test": {
+  "n": 1015,
+  "positives": 168,
+  "dataset": "data/processed/holdout.csv @ lab3-v1.0"
+ },
+ "threshold": 0.46,
+ "quality": {
+  "model": {
+   "TN": 738,
+   "FP": 109,
+   "FN": 32,
+   "TP": 136,
+   "recall": 0.8095238095238095,
+   "precision": 0.5551020408163265,
+   "f1": 0.6585956416464891,
+   "roc_auc": 0.9066909821779952
+  },
+  "system": {
+   "TN": 738,
+   "FP": 109,
+   "FN": 32,
+   "TP": 136,
+   "recall": 0.8095238095238095,
+   "precision": 0.5551020408163265,
+   "f1": 0.6585956416464891
+  },
+  "non_ml_rule": {
+   "TN": 545,
+   "FP": 302,
+   "FN": 26,
+   "TP": 142,
+   "recall": 0.8452380952380952,
+   "precision": 0.31981981981981983,
+   "f1": 0.46405228758169936,
+   "roc_auc": 0.7443427784336876
+  },
+  "fallback_share": 0.0009852216748768472,
+  "n_fallback": 1
+ },
+ "fairness": {
+  "CityTier": [
+   {
+    "group": "1.0",
+    "n": 659,
+    "positives": 92,
+    "selection_rate": 0.2291350531107739,
+    "TPR": 0.7934782608695652,
+    "role": "привілейована (референс)"
+   },
+   {
+    "group": "2.0",
+    "n": 32,
+    "positives": 7,
+    "selection_rate": 0.1875,
+    "TPR": 0.7142857142857143,
+    "DPR": 0.818294701986755,
+    "EOR": 0.9001956947162427,
+    "status": "недостатньо даних (n < 30 або позитивних < 10) — без інтервалу"
+   },
+   {
+    "group": "3.0",
+    "n": 324,
+    "positives": 69,
+    "selection_rate": 0.2716049382716049,
+    "TPR": 0.8405797101449275,
+    "DPR": 1.185348704112501,
+    "DPR_ci": [
+     0.9206598601851378,
+     1.4649746363707201
+    ],
+    "EOR": 1.0593607305936072,
+    "EOR_ci": [
+     0.9225065757640801,
+     1.2105197723201186
+    ]
+   }
+  ],
+  "Gender": [
+   {
+    "group": "Female",
+    "n": 404,
+    "positives": 75,
+    "selection_rate": 0.2524752475247525,
+    "TPR": 0.7733333333333333,
+    "DPR": 1.0787578757875786,
+    "DPR_ci": [
+     0.8669744004543974,
+     1.363460337567799
+    ],
+    "EOR": 0.922051282051282,
+    "EOR_ci": [
+     0.7822842821898129,
+     1.068276654599685
+    ]
+   },
+   {
+    "group": "Male",
+    "n": 611,
+    "positives": 93,
+    "selection_rate": 0.23404255319148937,
+    "TPR": 0.8387096774193549,
+    "role": "привілейована (референс)"
+   }
+  ],
+  "decision": "система (модель з порогом ЛР3 + правило для OOD)",
+  "n_boot": 1000,
+  "rule_insufficient": "група з < 30 об'єктами або < 10 позитивними"
+ },
+ "proxy": {
+  "cramers_v_with_CityTier": {
+   "PreferredPaymentMode": 0.4423444198834432,
+   "PreferedOrderCat": 0.20415160299400292,
+   "PreferredLoginDevice": 0.033397141861066584,
+   "MaritalStatus": 0.05558739345540076
+  },
+  "model_features_eps2_with_CityTier": {
+   "Tenure": 0.0040875147096812725,
+   "Complain": -0.0010722491424530745,
+   "MaritalStatus_Single": 0.0030595832504332066,
+   "OrdersPerTenureMonth": 0.0039016634691506624,
+   "TenureStage": 0.0037388713099062443,
+   "Segment": 0.008030597120523453,
+   "Tenure / OrderCount": 0.0046036033891141415,
+   "Tenure / DaySinceLastOrder": 0.0047872308641672134,
+   "DaySinceLastOrder / Tenure": -0.000369442772353068,
+   "HourSpendOnApp / Tenure": 0.0016443395288661122,
+   "WarehouseToHome / Tenure": 0.006175169255584478,
+   "NATURAL_LOGARITHM(Tenure)": 0.004928551614284515,
+   "CashbackAmount / Tenure__missing": -0.0018316333880648017,
+   "DaySinceLastOrder / Tenure__missing": -0.0013802472967654467,
+   "WarehouseToHome / Tenure__missing": 0.0002215693093603477
+  },
+  "note": "ε² ≥ 0.01 — малий ефект; ≥ 0.06 — середній"
+ },
+ "roi": {
+  "песимістичний": {
+   "assumptions": {
+    "offer_cost": 35,
+    "monthly_margin": 50,
+    "retained_months": 15,
+    "offer_success_rate": 0.5
+   },
+   "cost_matrix": {
+    "C00": 0.0,
+    "C01": 35.0,
+    "C10": 750.0,
+    "C11": 410.0
+   },
+   "loss_non_ml_rule": 88290.0,
+   "loss_system": 83575.0,
+   "effect": 4715.0,
+   "effect_per_1000_customers": 4645.320197044335,
+   "effect_share_of_rule_loss": 0.05340355646166044
+  },
+  "центральний": {
+   "assumptions": {
+    "offer_cost": 50,
+    "monthly_margin": 40,
+    "retained_months": 12,
+    "offer_success_rate": 0.35
+   },
+   "cost_matrix": {
+    "C00": 0.0,
+    "C01": 50.0,
+    "C10": 480.0,
+    "C11": 362.0
+   },
+   "loss_non_ml_rule": 78984.0,
+   "loss_system": 70042.0,
+   "effect": 8942.0,
+   "effect_per_1000_customers": 8809.852216748768,
+   "effect_share_of_rule_loss": 0.11321280259293022
+  },
+  "оптимістичний": {
+   "assumptions": {
+    "offer_cost": 70,
+    "monthly_margin": 30,
+    "retained_months": 9,
+    "offer_success_rate": 0.2
+   },
+   "cost_matrix": {
+    "C00": 0.0,
+    "C01": 70.0,
+    "C10": 270.0,
+    "C11": 286.0
+   },
+   "loss_non_ml_rule": 68772.0,
+   "loss_system": 55166.0,
+   "effect": 13606.0,
+   "effect_per_1000_customers": 13404.926108374384,
+   "effect_share_of_rule_loss": 0.19784214505903566
+  }
+ },
+ "currency": "у.о. (умовні одиниці, масштаб CashbackAmount)"
+}

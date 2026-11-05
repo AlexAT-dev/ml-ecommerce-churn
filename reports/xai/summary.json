@@ -1,0 +1,55 @@
+{
+ "model_version": "2",
+ "run_id": "ed310e5fcd524d249510833a3211ab2b",
+ "explainer": "shap.TreeExplainer",
+ "value_function": "interventional (feature_perturbation='interventional', фон models/shap_background.npy, 300 рядків train)",
+ "model_output": "probability (клас 1 — відтік)",
+ "base_value": 0.23105371552858928,
+ "mean_abs_shap": {
+  "Скарга": 0.06378064418360295,
+  "Стаж, міс.": 0.04217273458298468,
+  "Tenure / OrderCount": 0.03721265608421631,
+  "Етап клієнта": 0.03327814316997546,
+  "Замовлень на міс. стажу": 0.031468091880092995,
+  "Сегмент (WoE)": 0.030684736065454517,
+  "DaySinceLastOrder / Tenure — пропуск": 0.02786642017836633,
+  "WarehouseToHome / Tenure — пропуск": 0.020599274090792947,
+  "WarehouseToHome / Tenure": 0.01946093004645459,
+  "Неодружений(-а)": 0.015584716512846786,
+  "Tenure / DaySinceLastOrder": 0.014852529166879713,
+  "log(стаж)": 0.013967801294969794,
+  "HourSpendOnApp / Tenure": 0.013963648413550463,
+  "DaySinceLastOrder / Tenure": 0.012285130238979307,
+  "CashbackAmount / Tenure — пропуск": 0.010878901326731699
+ },
+ "pdp_or_ale": [
+  {
+   "feature": "Complain",
+   "method": "PDP+ICE",
+   "max_abs_spearman": 0.10007554101507364,
+   "most_correlated_with": "WarehouseToHome / Tenure__missing"
+  },
+  {
+   "feature": "Tenure",
+   "method": "ALE",
+   "max_abs_spearman": 0.9619799789389718,
+   "most_correlated_with": "TenureStage"
+  }
+ ],
+ "surrogate": {
+  "max_depth": 4,
+  "fit_on": "ймовірності моделі на train",
+  "fidelity_r2_test": 0.8226022482281367
+ },
+ "stability": {
+  "n_objects": 30,
+  "n_perturbations": 20,
+  "noise": "N(0, (0.03·std_train)²), лише неперервні поля, обрізання до Field",
+  "invalid_skipped": 0,
+  "shap_spearman_mean": 0.950410714285714,
+  "shap_spearman_p10": 0.8285714285714284,
+  "top5_overlap_mean": 0.9136666666666665,
+  "abs_delta_p_mean": 0.03978773799762894,
+  "abs_delta_p_p90": 0.14110934121931915
+ }
+}

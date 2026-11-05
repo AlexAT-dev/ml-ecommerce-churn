@@ -1,0 +1,33 @@
+{
+  "model_version": "2",
+  "run_id": "ed310e5fcd524d249510833a3211ab2b",
+  "source": "mlflow",
+  "client": "httpx, послідовні запити, той самий хост",
+  "machine": {
+    "os": "Windows-10-10.0.19045-SP0",
+    "python": "3.11.9",
+    "cpu": "13th Gen Intel(R) Core(TM) i5-13420H",
+    "logical_cores": 12,
+    "ram_gb": 15.7
+  },
+  "results": {
+    "/v1/predict": {
+      "n": 100,
+      "p50_ms": 211.8,
+      "p95_ms": 252.8,
+      "mean_ms": 214.5
+    },
+    "/v1/predict_batch (256 рядків)": {
+      "n": 100,
+      "p50_ms": 1820.8,
+      "p95_ms": 2167.8,
+      "mean_ms": 1857.8
+    },
+    "/v1/explain": {
+      "n": 100,
+      "p50_ms": 646.4,
+      "p95_ms": 780.3,
+      "mean_ms": 661.3
+    }
+  }
+}

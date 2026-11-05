@@ -1,0 +1,88 @@
+{
+ "model_version": "3",
+ "run_id": "20321913fd5d411cbb95dd43dbe8b660",
+ "champion": {
+  "model_version": 2,
+  "run_id": "ed310e5fcd524d249510833a3211ab2b"
+ },
+ "challenger": {
+  "model_version": 3,
+  "run_id": "20321913fd5d411cbb95dd43dbe8b660",
+  "n_new_labels": 20,
+  "strategy": "entropy_diversity"
+ },
+ "random": {
+  "n_new_labels": 20,
+  "registered": false
+ },
+ "test": {
+  "n": 1015,
+  "positives": 168,
+  "dataset": "holdout ЛР3"
+ },
+ "bootstrap": {
+  "n_boot": 1000,
+  "paired": true,
+  "point": {
+   "champion": {
+    "roc_auc": 0.9066909821779952,
+    "f1": 0.6585956416464891,
+    "cost_per_customer": 69.00689655172414
+   },
+   "challenger": {
+    "roc_auc": 0.9086024905830101,
+    "f1": 0.6421568627450981,
+    "cost_per_customer": 69.58817733990148
+   },
+   "random": {
+    "roc_auc": 0.9104683195592287,
+    "f1": 0.6405867970660146,
+    "cost_per_customer": 69.63743842364532
+   }
+  },
+  "diff_vs_champion": {
+   "challenger − champion": {
+    "roc_auc": {
+     "mean": 0.0019115084050149722,
+     "ci_low": -0.004291841304823757,
+     "ci_high": 0.008296121264758899,
+     "contains_zero": true
+    },
+    "f1": {
+     "mean": -0.016438778901391005,
+     "ci_low": -0.04008369166754743,
+     "ci_high": 0.008733865080526097,
+     "contains_zero": true
+    },
+    "cost_per_customer": {
+     "mean": 0.5812807881773381,
+     "ci_low": -0.28211822660098806,
+     "ci_high": 1.42669950738917,
+     "contains_zero": true
+    }
+   },
+   "random − champion": {
+    "roc_auc": {
+     "mean": 0.0037773373812335365,
+     "ci_low": -0.0032508735312306992,
+     "ci_high": 0.01258330858593914,
+     "contains_zero": true
+    },
+    "f1": {
+     "mean": -0.01800884458047447,
+     "ci_low": -0.043281951802009215,
+     "ci_high": 0.0061419674034151805,
+     "contains_zero": true
+    },
+    "cost_per_customer": {
+     "mean": 0.6305418719211815,
+     "ci_low": -0.197487684729068,
+     "ci_high": 1.507832512315274,
+     "contains_zero": true
+    }
+   }
+  }
+ },
+ "promotion_decision": "НЕ просувати: інтервал різниці challenger − champion містить 0 (перевагу не доведено)",
+ "champion_changed_automatically": false
+}
