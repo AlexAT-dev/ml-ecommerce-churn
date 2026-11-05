@@ -51,3 +51,20 @@ def test_feedback_removes_request_from_next_queue(client, valid_payload):
     assert client.post("/v1/feedback", json={"request_id": target, "y_true": 1}).status_code == 200
     after = [r["request_id"] for r in client.get("/v1/label_queue").json()["queue"]]
     assert target not in after
+
+
+@requires_models
+def test_explain_without_log_does_not_duplicate_queue(client, valid_payload):
+    """Дашборд пояснює запит з черги через /v1/explain?log=false: копія клієнта не має з'являтися в журналі (і в черзі)."""
+    from src.app.db import db_path
+
+    def n_logged():
+        with sqlite3.connect(db_path()) as con:
+            return con.execute("SELECT COUNT(*) FROM predictions").fetchone()[0]
+
+    before = n_logged()
+    r = client.post("/v1/explain", params={"log": "false"}, json=valid_payload)
+    assert r.status_code == 200 and n_logged() == before
+    rid = r.json()["prediction"]["request_id"]
+    assert client.post("/v1/feedback", json={"request_id": rid, "y_true": 1}).status_code == 404   # тимчасовий id
+    assert client.post("/v1/explain", json=valid_payload).status_code == 200 and n_logged() == before + 1

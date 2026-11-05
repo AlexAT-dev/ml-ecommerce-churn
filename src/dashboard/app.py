@@ -179,9 +179,18 @@ with tab4:
             item = queue.set_index("request_id").loc[rid]
             feats = json.loads(item["features"])
             st.json(feats, expanded=False)
-            code, ex = api("POST", "/v1/explain", json=feats)
-            if code == 200:
-                show_explanation(ex)
+            # Streamlit перезапускає весь скрипт при кожній дії (і код усіх вкладок), тому:
+            # log=false — запит уже в журналі, новий запис дав би копію клієнта в черзі;
+            # кеш за request_id — SHAP + LIME рахуються один раз на запит, а не при кожному кліку.
+            cache = st.session_state.setdefault("queue_explain", {})
+            if rid not in cache:
+                code, ex = api("POST", "/v1/explain", params={"log": "false"}, json=feats)
+                if code == 200:
+                    cache[rid] = ex
+                else:
+                    st.error(f"{code}: {ex.get('error', ex)}")
+            if rid in cache:
+                show_explanation(cache[rid])
             suggested = int(oracle.loc[rid, "y_oracle"]) if oracle is not None and rid in oracle.index else 0
             y_true = st.radio("Фактичний результат (оракул підказує: "
                               f"{'пішов' if suggested else 'залишився'})", [0, 1], index=suggested, horizontal=True,

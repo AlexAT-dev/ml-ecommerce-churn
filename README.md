@@ -227,7 +227,7 @@ docker compose up --build                       # mlflow :5000, api :8000, dashb
 | Дані | `test_3_protected_attribute_rejected` (CityTier/Gender → 422), `test_4_string_instead_of_number`, `test_5_out_of_field_bounds`, `test_meta_contract`; ЛР1–3: захищені ознаки поза конфігураціями, ідемпотентність препроцесора |
 | Модель | `test_parity_on_test`, `test_parity_on_domain_boundaries_and_categories`, `test_no_label_flips_far_from_threshold`, `test_explain_matches_prediction`; ЛР3: герметичність конвеєра |
 | Інфраструктура | `test_1_health_after_start`, `test_2_valid_predict`, `test_7_batch_over_limit`, `test_8_feedback_unknown_request` (404), `test_broken_contract_keeps_503` |
-| Моніторинг | `test_6_ood_fallback`, `test_queue_limited_sorted_without_feedback_and_ood`, `test_feedback_removes_request_from_next_queue`; журнал запитів і фідбеку в SQLite |
+| Моніторинг | `test_6_ood_fallback`, `test_queue_limited_sorted_without_feedback_and_ood`, `test_feedback_removes_request_from_next_queue`, `test_explain_without_log_does_not_duplicate_queue`; журнал запитів і фідбеку в SQLite |
 
 **Час відповіді** (`python -m src.app.benchmark` → `reports/latency.json`; 100 послідовних запитів через HTTP; i5-13420H, 12 логічних ядер,
 16 ГБ, Windows 10, @champion v2):
@@ -253,7 +253,7 @@ python -m src.observability.label_round --label   # 20 міток оракула
 python -m src.observability.label_round --retrain # v3 @challenger, reports/label_round.json
 python -m src.xai.offline_report                  # reports/xai/, лог у run @champion
 python -m src.app.benchmark                       # reports/latency.json
-python -m pytest -q                               # 54 тести
+python -m pytest -q                               # 55 тестів
 ```
 
 `feedback.db`, `mlflow.db` і `mlruns/` не комітяться. Фінальні артефакти моделі (`models/`) — у git, щоб сервіс і тести

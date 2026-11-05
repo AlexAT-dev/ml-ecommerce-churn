@@ -126,9 +126,10 @@ def _predictor(request: Request):
     return p
 
 
-def _respond(p, item: PredictionRequest, res: dict) -> PredictionResponse:
+def _respond(p, item: PredictionRequest, res: dict, log: bool = True) -> PredictionResponse:
     rid = str(uuid.uuid4())
-    db.log_prediction(rid, item.model_dump(), res, p.version)
+    if log:                                   # без журналу id тимчасовий: фідбек на нього дасть 404, у чергу він не потрапить
+        db.log_prediction(rid, item.model_dump(), res, p.version)
     return PredictionResponse(request_id=rid, score=res["score"], label=res["label"], uncertainty=res["uncertainty"],
                               meta=Meta(model_version=p.version, fallback_applied=res["fallback_applied"],
                                         ood_log_density=res["ood_log_density"]))
@@ -167,11 +168,13 @@ def feedback(fb: FeedbackRequest):
 
 
 @router.post("/v1/explain", response_model=ExplainResponse)
-def explain(item: PredictionRequest, request: Request):
+def explain(item: PredictionRequest, request: Request, log: bool = True):
+    """Прогноз + SHAP + LIME. ``log=false`` — пояснення вже залогованого запиту (черга розмітки):
+    без нового запису в журналі, інакше той самий клієнт з'явився б у черзі ще раз."""
     p = _predictor(request)
     rec = item.model_dump()
     res = p.predict([rec])[0]
-    pr = _respond(p, item, res)
+    pr = _respond(p, item, res, log=log)
     ex = request.app.state.explainer.explain(p.features([rec])[0])
     return ExplainResponse(prediction=pr, **ex)
 
